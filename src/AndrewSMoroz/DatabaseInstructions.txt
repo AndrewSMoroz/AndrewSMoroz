@@ -1,0 +1,30 @@
+﻿Assumptions
+- The target database does not exist
+- The DefaultConnection in appsettings.json specifies the target database server/database/credentials/etc.
+- The below commands are run from the projects's folder (not the solution): .../AndrewSMoroz/src/AndrewSMoroz
+
+
+1. dotnet ef database update -c ApplicationDbContext
+     
+	 This will apply the built-in Identity migrations supplied by the application template scaffolding.
+     This creates the database objects necessary to support Identity.
+
+2. dotnet ef migrations add CreateContactsSchema -c ContactsDbContext -o Data\Migrations
+
+     This will create a new migration, in the specified subfolder, that will be used
+	 to create the database objects necessary for the Contacts demo application.
+
+3. dotnet ef database update -c ContactsDbContext
+
+     This will apply the new Contacts migration to the database, actually creating the database objects.
+
+
+
+
+
+
+(localdb)\MSSQLLocalDB
+localhost
+(localdb)\v11.0
+OWNER-PC
+OWNER-PC\SQLEXPRESS

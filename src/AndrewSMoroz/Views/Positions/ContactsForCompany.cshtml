@@ -1,0 +1,11 @@
+﻿@model IEnumerable<AndrewSMoroz.ViewModels.ContactViewModels.ContactListViewModel>
+@(Layout = null)
+@foreach (var vm in Model)
+{
+    string checkboxID = "chkContact" + vm.ID;
+    <div class="contact-checkbox" data-company-id="@vm.CompanyID">
+        <input id="@checkboxID" class="contact-checkbox" type="checkbox" name="ContactIDs" value="@vm.ID" />
+        <label for="@checkboxID" class="no-bold">@vm.NameAndType</label>
+        <br />
+    </div>
+}

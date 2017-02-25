@@ -1,0 +1,55 @@
+@model AndrewSMoroz.ViewModels.ContactPhoneViewModels.ContactPhoneViewModel
+
+@{
+    ViewData["Title"] = "Edit Phone Number";
+}
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Edit Phone Number</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="ContactID" />
+        <input type="hidden" asp-for="ContactFullName" />
+        <div class="form-group">
+            <label class="col-md-2 control-label">Contact</label>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ContactFullName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactPhoneTypeID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ContactPhoneTypeID" class="form-control" asp-items="ViewBag.ContactPhoneTypeList">
+                    <option value="">@ViewBag.SelectListDefaultItemText</option>
+                </select>
+                <span asp-validation-for="ContactPhoneTypeID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PhoneNumber" class="form-control" placeholder="000-000-0000" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Extension" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Extension" class="form-control" />
+                <span asp-validation-for="Extension" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-info" style="margin-right: 15px;" />
+                <a asp-controller="Contacts" asp-action="Details" asp-route-id="@Model.ContactID" class="btn btn-info" role="button">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

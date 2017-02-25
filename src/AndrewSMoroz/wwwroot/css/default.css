@@ -1,0 +1,95 @@
+﻿body#body-default {
+    background-color: beige;
+    margin-top: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+#jumbotron-default {
+    background-color: #ededc4;
+}
+
+header {
+    text-align: center;
+}
+
+header a {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+footer {
+    text-align: center;
+}
+
+hr {
+    border-color: darkgray;
+}
+
+a:link {
+    color: darkblue;
+    text-decoration: underline;
+}
+a:visited {
+    color: darkblue;
+    text-decoration: underline;
+}
+a:hover {
+    background-color: azure;
+    /*background-color: #ededc4;*/
+    color: darkblue;
+    text-decoration: underline;
+}
+a:active {
+    color: darkblue;
+    text-decoration: underline;
+}
+
+div.demo-column {
+    margin-bottom: 15px;
+}
+
+div.demo-item {
+    border: 2px solid black;
+    border-radius: 20px;
+    overflow-x: hidden;
+    padding: 5px;
+}
+
+div.demo-item h3 {
+    text-align: center;
+}
+
+div.demo-item h4 {
+    text-align: center;
+}
+
+div.demo-item p {
+    margin: 10px;
+    text-align: left;
+}
+
+a.demo-item-link:link {
+    color: black;
+    text-decoration: none;
+}
+a.demo-item-link:visited {
+    color: black;
+    text-decoration: none;
+}
+a.demo-item-link:hover {
+    color: black;
+    text-decoration: none;
+}
+a.demo-item-link:active {
+    color: black;
+    text-decoration: none;
+}
+
+div.demo-item-link:hover {
+    /*background-color: azure;*/
+    background-color: #ededc4;
+    border-color: darkblue;
+    color: darkblue;
+}

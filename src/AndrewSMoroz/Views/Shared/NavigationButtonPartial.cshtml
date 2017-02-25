@@ -1,0 +1,19 @@
+﻿
+@* Partial view that renders a link to go to the controller and action specified in ViewBag *@
+@* If one of the values is missing, a default value is used *@
+
+@{
+
+    string controller = ViewBag.FromController;
+    string action = ViewBag.FromAction;
+    string id = string.Empty;
+    string buttonText = ViewBag.ButtonText;
+
+    if (string.IsNullOrEmpty(controller)) { controller = "Contacts"; }
+    if (string.IsNullOrEmpty(action)) { action = "Index"; }
+    if (Model != null && Model.ID != null && "details,edit".Contains((action ?? string.Empty).ToLower())) { id = Model.ID.ToString(); }
+    if (string.IsNullOrEmpty(buttonText)) { buttonText = "Cancel"; }
+
+}
+
+<a asp-controller="@controller" asp-action="@action" asp-route-id="@id" class="btn btn-info" role="button">@buttonText</a>

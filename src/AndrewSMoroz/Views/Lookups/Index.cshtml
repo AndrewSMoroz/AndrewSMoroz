@@ -1,0 +1,58 @@
+@model IEnumerable<AndrewSMoroz.ViewModels.LookupViewModels.LookupItemViewModel>
+
+@{
+    ViewData["Title"] = ViewBag.LookupDescription;
+}
+
+<div class="row page-heading">
+    <div class="col-sm-6">
+        <span class="page-heading">@ViewData["Title"]</span>
+    </div>
+    <div class="col-sm-6 text-right text-left-xs">
+        <a asp-action="Create" asp-route-lookupType="@ViewBag.LookupType" class="btn btn-info" role="button">Create New</a>
+        <br />
+    </div>
+</div>
+
+@if (ViewBag.OperationErrorMessage != null)
+{
+    <div class="text-danger panel-danger" style="margin: 10px 0px;">@ViewBag.OperationErrorMessage</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sequence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID" asp-route-lookupType="@ViewBag.LookupType" class="glyph-link">
+                    <span class="glyphicon glyphicon-edit" title="Edit this item" data-toggle="tooltip"></span>
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.ID" asp-route-lookupType="@ViewBag.LookupType" class="glyph-link" data-delete-item-id="@item.ID">
+                    <span class="glyphicon glyphicon-remove" title="Delete this item" data-toggle="tooltip"></span>
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sequence)
+            </td>
+            <td>
+                <span data-delete-item-id="@item.ID">@item.Description</span>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@Html.Partial("DeleteConfirmationDialogPartial")
+
+@section Scripts {}

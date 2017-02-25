@@ -1,0 +1,138 @@
+@model AndrewSMoroz.ViewModels.PositionViewModels.PositionDetailsViewModel
+@using AndrewSMoroz.ViewModels.ContactViewModels
+
+@{
+    ViewData["Title"] = "Position Details - " + Model.Title;
+}
+
+<div>
+    <h4>Position - @Model.Title</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+        <dt>
+            Contacts
+        </dt>
+        <dd>
+            @if (Model.Contacts != null && Model.Contacts.Any())
+            {
+                <table style="border: 0px none #000000;">
+                    @foreach (ContactListViewModel contact in Model.Contacts)
+                    {
+                        <tr>
+                            <td style="padding-right: 20px;">@contact.FullName</td>
+                            <td style="padding-right: 20px;">@contact.ContactType</td>
+                            <td style="padding-right: 20px;">@contact.PrimaryPhone</td>
+                            <td style="padding-right: 20px;">@contact.PrimaryPhoneType</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>None</span>
+            }
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID" asp-route-fromController="Positions" asp-route-fromAction="Details" class="btn btn-info" role="button">Edit</a>
+    @*<a asp-action="Index">Back to List</a>*@
+</div>
+
+<hr />
+
+<div class="row page-heading">
+    <div class="col-sm-6">
+        <h4>Events</h4>
+    </div>
+    <div class="col-sm-6 text-right text-left-xs">
+        <a asp-controller="Events" asp-action="Create" asp-route-positionID="@Model.ID" class="btn btn-info" role="button">Create New</a>
+        <br />
+    </div>
+</div>
+
+@if (ViewBag.OperationErrorMessage != null)
+{
+    <div class="text-danger panel-danger" style="margin: 10px 0px;">@ViewBag.OperationErrorMessage</div>
+}
+
+@if (Model.Events != null && Model.Events.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Date
+                </th>
+                <th class="text-right">
+                    Time
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Description
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Events)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Events" asp-action="Edit" asp-route-id="@item.ID" asp-route-positionID="@Model.ID" class="glyph-link">
+                            <span class="glyphicon glyphicon-edit" title="Edit this event" data-toggle="tooltip"></span>
+                        </a>
+                        <a asp-controller="Events" asp-action="Delete" asp-route-id="@item.ID" asp-route-positionID="@Model.ID" class="glyph-link" data-delete-item-id="@item.ID">
+                            <span class="glyphicon glyphicon-remove" title="Delete this event" data-toggle="tooltip"></span>
+                        </a>
+                    </td>
+                    <td class="text-nowrap">
+                        @(item.DateTime == null ? null : item.DateTime.ToString("yyyy-MM-dd"))
+                    </td>
+                    <td class="text-nowrap text-right">
+                        @(item.DateTime == null ? null : item.DateTime.ToString("h:mm tt"))
+                    </td>
+                    <td>
+                        <span data-delete-item-id="@item.ID">@item.EventType</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span>None</span>
+}
+
+@Html.Partial("DeleteConfirmationDialogPartial")

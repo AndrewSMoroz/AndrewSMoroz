@@ -1,0 +1,127 @@
+@using System.Text
+@model AndrewSMoroz.ViewModels.PositionViewModels.PositionDetailsViewModel
+
+@{
+    ViewData["Title"] = "Create Position";
+}
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Create Position</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="CompanyID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select id="selCompanies" asp-for="CompanyID" class="form-control" asp-items="ViewBag.CompanyList">
+                    <option value="">@ViewBag.SelectListDefaultItemText</option>
+                </select>
+                <span asp-validation-for="CompanyID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DatePosted" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DatePosted" class="form-control" />
+                <span asp-validation-for="DatePosted" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactIDs" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <div id="contact-checkboxes"></div>
+                <span asp-validation-for="ContactIDs" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-info" style="margin-right: 15px;" />
+                <a asp-action="Index" class="btn btn-info" role="button">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+
+    @{
+        // Populate a variable containing the last set of checked checkedboxes that was posted
+        // For the scenario where some boxes were checked, submit was clicked, and there was a validation error on the server side
+        // This is used to re-check the boxes when the page is re-displayed with the validation error messages
+        String selectedCheckboxes = "null";
+        if (Model != null && Model.ContactIDs != null && Model.ContactIDs.Any())
+        {
+            selectedCheckboxes = "\"" + string.Join(",", Model.ContactIDs) + "\"";
+        }
+    }
+
+    var selectedCheckboxes = @(Html.Raw(selectedCheckboxes));
+
+    //------------------------------------------------------------------------------------------------------------------
+    $(document).ready(function() {
+
+        //--------------------------------------------------------------------------------------------------------------
+        // This uses Ajax to fetch the checkboxes html and put it into the div that has been defined to hold it
+        function GetContactCheckboxes()
+        {
+            var companyID = $("select#selCompanies").val();
+            if (companyID == "") {
+                $("div#contact-checkboxes").html("");
+            }
+            else {
+                $.get("/Positions/ContactsForCompany/" + companyID,
+                      function (data, status) {
+                          $("div#contact-checkboxes").html(data);
+                          CheckContactCheckboxes();
+                      }
+                );
+            }
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Check any checkboxes specified in string variable above, if they exist
+        function CheckContactCheckboxes()
+        {
+            if (selectedCheckboxes != null)
+            {
+                var contactIDs = selectedCheckboxes.split(",");
+                contactIDs.forEach(function(id) {
+                    var checkboxID = "input:checkbox#chkContact" + id;
+                    $(checkboxID).prop("checked", true);
+                })
+            }
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        // When company is changed in dropdown, display only the appropriate contact checkboxes
+        $("select#selCompanies").change(function () {
+            GetContactCheckboxes();
+        });
+
+        // Display appropriate checkboxes when document is first loaded
+        // This could happen initially, or if there is a validation error caught on the server side
+        GetContactCheckboxes();
+
+    });
+
+</script>
+
+}

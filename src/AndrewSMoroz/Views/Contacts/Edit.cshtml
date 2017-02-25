@@ -1,0 +1,56 @@
+@model AndrewSMoroz.ViewModels.ContactViewModels.ContactDetailsViewModel
+
+@{
+    ViewData["Title"] = "Edit Contact - " + Model.FullName;
+}
+
+<form asp-action="Edit" asp-route-fromController="@ViewBag.FromController" asp-route-fromAction="@ViewBag.FromAction">
+    <div class="form-horizontal">
+        <h4>Edit Contact - @Model.FullName</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="CompanyID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select id="selCompanies" asp-for="CompanyID" class="form-control" asp-items="ViewBag.CompanyList">
+                    <option value="">@ViewBag.SelectListDefaultItemText</option>
+                </select>
+                <span asp-validation-for="CompanyID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactTypeID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select id="selContactTypes" asp-for="ContactTypeID" class="form-control" asp-items="ViewBag.ContactTypeList">
+                    <option value="">@ViewBag.SelectListDefaultItemText</option>
+                </select>
+                <span asp-validation-for="ContactTypeID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-info" style="margin-right: 15px;" />
+                @Html.Partial("NavigationButtonPartial")
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

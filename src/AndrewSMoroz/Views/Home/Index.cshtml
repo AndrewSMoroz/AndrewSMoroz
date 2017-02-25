@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<header id="jumbotron-default" class="jumbotron">
+    <h1>
+        Andrew S. Moroz
+    </h1>
+    <h3>
+        C# Developer
+    </h3>
+    <p>
+        <a target="_blank" href="~/documentation/AndrewSMoroz_Resume.pdf">Resume</a>
+        |
+        <a target="_blank" href="https://www.linkedin.com/in/AndrewSMoroz">LinkedIn</a>
+        |
+        <a target="_blank" href="https://github.com/AndrewSMoroz">GitHub</a>
+    </p>
+</header>
+
+<div class="row">
+
+    <div class="col-md-6 demo-column">
+        <a asp-controller="Contacts" asp-action="Index" class="demo-item-link">
+            <div class="demo-item demo-item-link">
+                <h3>Contacts<br />Demo Application</h3>
+                <p>
+                    An ASP.NET Core MVC application that can be used during a job hunt to keep track
+                    of contacts, companies, and positions.  Demonstrates the following:
+                </p>
+                <ul>
+                    <li>ASP.NET Core MVC</li>
+                    <li>ASP.NET Identity</li>
+                    <li>Entity Framework Core</li>
+                    <li>SQL Server</li>
+                    <li>Bootstrap</li>
+                    <li>jQuery</li>
+                    <li>jQuery-ui</li>
+                    <li>jQuery validation</li>
+                </ul>
+            </div>
+        </a>
+    </div>
+
+    @*<div class="col-md-4 demo-column">
+        <a asp-controller="Explore" asp-action="Setup" class="demo-item-link">
+            <div class="demo-item demo-item-link">
+                <h3>Explore<br />Demo Application</h3>
+                <p>
+                    A framework for exploring a map using a text-adventure-style interface.
+                    Demonstrates the following:
+                </p>
+                <ul>
+                    <li>ASP.NET Core MVC</li>
+                    <li>Entity Framework Core</li>
+                    <li>SQL Server</li>
+                    <li>Bootstrap</li>
+                    <li>jQuery</li>
+                </ul>
+            </div>
+        </a>
+    </div>*@
+
+    <div class="col-md-6 demo-column">
+        <div class="demo-item">
+            <h3>Documentation Samples</h3>
+            <ul>
+                <li><a target="_blank" href="~/documentation/AndrewSMoroz_Resume.pdf">Resume</a></li>
+                <li><a target="_blank" href="~/documentation/ContactsERD.pdf">Contacts Demo Application ERD</a></li>
+                <li><a target="_blank" href="~/documentation/Web_API_Documentation.pdf">Web API Documentation</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>

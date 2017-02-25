@@ -1,0 +1,216 @@
+﻿
+/* Some styles in bootstrap are easy to override; others need a more specific selector */
+/* An id selector works in this case */
+body#body-contacts {
+    background-color: ghostwhite;
+}
+
+footer {
+    text-align: center;
+}
+
+hr {
+    border-color: darkgray;
+}
+
+button#logout-button {
+    text-decoration: none;
+}
+
+table {
+    border: 2px solid #DDDDDD;
+}
+
+div.page-heading {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+span.page-heading {
+    font-weight: bold;
+    font-size: 200%;
+}
+
+label.no-bold {
+    font-weight: normal;
+}
+
+input.date-time {
+    width: 200px;
+}
+
+a.glyph-link {
+    margin-right: 5px;
+}
+
+a:link {
+    color: royalblue
+}
+a:visited {
+    color: royalblue;
+}
+a:hover {
+    color: orangered;
+    text-decoration: none;
+}
+a:active {
+    color: royalblue;
+}
+
+a.btn:link {
+    color: white;
+}
+a.btn:visited {
+    color: white;
+}
+a.btn:hover {
+    color: white;
+}
+a.btn:active {
+    color: white;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* This is to hide the close button in a jQuery UI dialog */
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+/* These classes will align text differently for different screen sizes */
+/* From https://github.com/twbs/bootstrap/issues/11292 */
+.text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
+    text-align: left;
+}
+.text-center-not-xs, .text-center-not-sm, .text-center-not-md, .text-center-not-lg {
+    text-align: center;
+}
+.text-right-not-xs, .text-right-not-sm, .text-right-not-md, .text-right-not-lg {
+    text-align: right;
+}
+.text-justify-not-xs, .text-justify-not-sm, .text-justify-not-md, .text-justify-not-lg {
+    text-align: justify;
+}
+
+@media (max-width: 767px) {
+    .text-left-not-xs, .text-center-not-xs, .text-right-not-xs, .text-justify-not-xs {
+        text-align: inherit;
+    }
+    .text-left-xs {
+        text-align: left;
+    }
+    .text-center-xs {
+        text-align: center;
+    }
+    .text-right-xs {
+        text-align: right;
+    }
+    .text-justify-xs {
+        text-align: justify;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .text-left-not-sm, .text-center-not-sm, .text-right-not-sm, .text-justify-not-sm {
+        text-align: inherit;
+    }
+    .text-left-sm {
+        text-align: left;
+    }
+    .text-center-sm {
+        text-align: center;
+    }
+    .text-right-sm {
+        text-align: right;
+    }
+    .text-justify-sm {
+        text-align: justify;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .text-left-not-md, .text-center-not-md, .text-right-not-md, .text-justify-not-md {
+        text-align: inherit;
+    }
+    .text-left-md {
+        text-align: left;
+    }
+    .text-center-md {
+        text-align: center;
+    }
+    .text-right-md {
+        text-align: right;
+    }
+    .text-justify-md {
+        text-align: justify;
+    }
+}
+@media (min-width: 1200px) {
+    .text-left-not-lg, .text-center-not-lg, .text-right-not-lg, .text-justify-not-lg {
+        text-align: inherit;
+    }
+    .text-left-lg {
+        text-align: left;
+    }
+    .text-center-lg {
+        text-align: center;
+    }
+    .text-right-lg {
+        text-align: right;
+    }
+    .text-justify-lg {
+        text-align: justify;
+    }
+}
+
+
+/* Everything below this point was created by the Visual Studio ASP.NET Core MVC project template */
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* buttons and links extension to use brackets: [ click me ] */
+.btn-bracketed::before {
+    display:inline-block;
+    content: "[";
+    padding-right: 0.5em;
+}
+.btn-bracketed::after {
+    display:inline-block;
+    content: "]";
+    padding-left: 0.5em;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"]
+{
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+  /* Hide captions */
+  .carousel-caption {
+    display: none
+  }
+}

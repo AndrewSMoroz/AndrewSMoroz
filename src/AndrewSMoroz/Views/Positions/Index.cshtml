@@ -1,0 +1,80 @@
+@model IEnumerable<AndrewSMoroz.ViewModels.PositionViewModels.PositionListViewModel>
+
+@{
+    ViewData["Title"] = "Positions";
+}
+
+<div class="row page-heading">
+    <div class="col-sm-6">
+        <span class="page-heading">@ViewData["Title"]</span>
+    </div>
+    <div class="col-sm-6 text-right text-left-xs">
+        <a asp-action="Create" class="btn btn-info" role="button">Create New</a>
+        <br />
+    </div>
+</div>
+
+@if (ViewBag.OperationErrorMessage != null)
+{
+    <div class="text-danger panel-danger" style="margin: 10px 0px;">@ViewBag.OperationErrorMessage</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatePosted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MostRecentEventType)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID" asp-route-fromController="Positions" asp-route-fromAction="Index" class="glyph-link">
+                    <span class="glyphicon glyphicon-edit" title="Edit this position" data-toggle="tooltip"></span>
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.ID" class="glyph-link" data-delete-item-id="@item.ID">
+                    <span class="glyphicon glyphicon-remove" title="Delete this position" data-toggle="tooltip"></span>
+                </a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ID" title="Click to see position details" data-toggle="tooltip">
+                    <span data-delete-item-id="@item.ID">@Html.DisplayFor(modelItem => item.Title)</span>
+                </a>
+            </td>
+            <td class="text-nowrap">
+                @Html.DisplayFor(modelItem => item.DatePosted)
+            </td>
+            <td>
+                <a asp-controller="Companies" asp-action="Details" asp-route-id="@item.CompanyID" title="Click to see company details" data-toggle="tooltip">
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MostRecentEventType)
+            </td>
+            <td class="text-nowrap">
+                @(item.MostRecentEventDateTime.HasValue ? item.MostRecentEventDateTime.Value.ToString("yyyy-MM-dd") : null)
+            </td>
+            <td class="text-nowrap text-right">
+                @(item.MostRecentEventDateTime.HasValue ? item.MostRecentEventDateTime.Value.ToString("h:mm tt") : null)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@Html.Partial("DeleteConfirmationDialogPartial")

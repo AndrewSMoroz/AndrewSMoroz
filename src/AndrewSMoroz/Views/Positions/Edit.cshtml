@@ -1,0 +1,98 @@
+@using AndrewSMoroz.ViewModels.ContactViewModels
+@model AndrewSMoroz.ViewModels.PositionViewModels.PositionDetailsViewModel
+
+@{
+    ViewData["Title"] = "Edit Position - " + Model.Title;
+}
+
+<form asp-action="Edit" asp-route-fromController="@ViewBag.FromController" asp-route-fromAction="@ViewBag.FromAction">
+    <div class="form-horizontal">
+        <h4>Edit Position - @Model.Title</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="CompanyID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select id="selCompanies" asp-for="CompanyID" class="form-control" asp-items="ViewBag.CompanyList"></select>
+                <span asp-validation-for="CompanyID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DatePosted" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DatePosted" class="form-control" />
+                <span asp-validation-for="DatePosted" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactIDs" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                @foreach (ContactListViewModel vm in ViewBag.ContactList)
+                {
+                    string checkedSection = "";
+                    if (Model.ContactIDs != null && Model.ContactIDs.Contains(vm.ID)) { checkedSection = "checked=\"checked\""; }
+                    string checkboxID = "chkContact" + vm.ID;
+                    <div class="contact-checkbox" data-company-id="@vm.CompanyID">
+                        <input id="@checkboxID" class="contact-checkbox" type="checkbox" name="ContactIDs" value="@vm.ID" @Html.Raw(checkedSection) />
+                        <label for="@checkboxID" class="no-bold">@vm.NameAndType</label>
+                        <br />
+                    </div>
+                }
+                <span asp-validation-for="ContactIDs" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-info" style="margin-right: 15px;" />
+                @Html.Partial("NavigationButtonPartial")
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Show checkboxes associated with currently selected company; hide the rest
+    function HideContactCheckboxes() {
+        $("div.contact-checkbox[data-company-id=" + $("select#selCompanies").val() + "]").show();
+        $("div.contact-checkbox[data-company-id!=" + $("select#selCompanies").val() + "]").hide();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    $(document).ready(function() {
+
+        // When company is changed in dropdown, display only the appropriate contact checkboxes
+        // All checkboxes exist; the appropriate ones are shown and hidden
+        $("select#selCompanies").change(function() {
+            HideContactCheckboxes();
+            //$("input:checkbox.contact-checkbox").prop("checked", false);    // In case any now-hidden boxes are checked
+        });
+
+        // Display the appropriate contact checkboxes on document load
+        HideContactCheckboxes();
+
+    });
+
+</script>
+
+}

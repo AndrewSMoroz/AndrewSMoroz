@@ -1,0 +1,38 @@
+@model AndrewSMoroz.ViewModels.LookupViewModels.LookupItemViewModel
+
+@{
+    ViewData["Title"] = ViewBag.LookupDescription + " - Edit";
+}
+
+<form asp-action="Edit" asp-route-lookupType="@ViewBag.LookupType">
+    <div class="form-horizontal">
+        <h4>@ViewData["Title"]</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="Sequence" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Sequence" class="form-control" />
+                <span asp-validation-for="Sequence" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-info" style="margin-right: 15px;" />
+                <a asp-action="Index" asp-route-lookupType="@ViewBag.LookupType" class="btn btn-info" role="button">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

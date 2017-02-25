@@ -1,0 +1,69 @@
+@model AndrewSMoroz.ViewModels.EventViewModels.EventDetailsViewModel
+
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Edit Event</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="PositionID" />
+        <input type="hidden" asp-for="PositionTitle" />
+        <input type="hidden" asp-for="CompanyName" />
+        <div class="form-group">
+            <label asp-for="CompanyName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.CompanyName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PositionTitle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PositionTitle)
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EventTypeID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="EventTypeID" class="form-control" asp-items="ViewBag.EventTypeList">
+                    <option value="">@ViewBag.SelectListDefaultItemText</option>
+                </select>
+                <span asp-validation-for="EventTypeID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Date" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Date" class="form-control date-time" placeholder="yyyy-mm-dd" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Time" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Time" class="form-control date-time" placeholder="hh:mm" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-info" style="margin-right: 15px;" />
+                <a asp-controller="Positions" asp-action="Details" asp-route-id="@Model.PositionID" class="btn btn-info" role="button">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,78 @@
+@model IEnumerable<AndrewSMoroz.ViewModels.ContactViewModels.ContactListViewModel>
+
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+<div class="row page-heading">
+    <div class="col-sm-6">
+        <span class="page-heading">@ViewData["Title"]</span>
+    </div>
+    <div class="col-sm-6 text-right text-left-xs">
+        <a asp-action="Create" class="btn btn-info" role="button">Create New</a>
+        <br />
+    </div>
+</div>
+
+@if (ViewBag.OperationErrorMessage != null)
+{
+    <div class="text-danger panel-danger" style="margin: 10px 0px;">@ViewBag.OperationErrorMessage</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrimaryPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrimaryPhoneType)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID" asp-route-fromController="Contacts" asp-route-fromAction="Index" class="glyph-link">
+                    <span class="glyphicon glyphicon-edit" title="Edit this contact" data-toggle="tooltip"></span>
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.ID" class="glyph-link" data-delete-item-id="@item.ID">
+                    <span class="glyphicon glyphicon-remove" title="Delete this contact" data-toggle="tooltip"></span>
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Contacts" asp-action="Details" asp-route-id="@item.ID" title="Click to see contact details" data-toggle="tooltip">
+                    <span data-delete-item-id="@item.ID">@Html.DisplayFor(modelItem => item.FullName)</span>
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Companies" asp-action="Details" asp-route-id="@item.CompanyID" title="Click to see company details" data-toggle="tooltip">
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimaryPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimaryPhoneType)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@Html.Partial("DeleteConfirmationDialogPartial")

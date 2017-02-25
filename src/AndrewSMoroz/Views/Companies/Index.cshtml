@@ -1,0 +1,76 @@
+@model IEnumerable<AndrewSMoroz.ViewModels.CompanyViewModels.CompanyListViewModel>
+
+@{
+    ViewData["Title"] = "Companies";
+}
+
+<div class="row page-heading">
+    <div class="col-sm-6">
+        <span class="page-heading">@ViewData["Title"]</span>
+    </div>
+    <div class="col-sm-6 text-right text-left-xs">
+        <a asp-action="Create" class="btn btn-info" role="button">Create New</a>
+        <br />
+    </div>
+</div>
+
+@if (ViewBag.OperationErrorMessage != null)
+{
+    <div class="text-danger panel-danger" style="margin: 10px 0px;">@ViewBag.OperationErrorMessage</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID" asp-route-fromController="Companies" asp-route-fromAction="Index" class="glyph-link">
+                    <span class="glyphicon glyphicon-edit" title="Edit this company" data-toggle="tooltip"></span>
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.ID" class="glyph-link" data-delete-item-id="@item.ID">
+                    <span class="glyphicon glyphicon-remove" title="Delete this company" data-toggle="tooltip"></span>
+                </a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ID" title="Click to see company details" data-toggle="tooltip">
+                    <span data-delete-item-id="@item.ID">@Html.DisplayFor(modelItem => item.Name)</span>
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@Html.Partial("DeleteConfirmationDialogPartial")

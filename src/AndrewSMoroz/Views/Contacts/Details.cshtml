@@ -1,0 +1,112 @@
+@model AndrewSMoroz.ViewModels.ContactViewModels.ContactDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details - " + Model.FullName;
+}
+
+<div>
+    <h4>Contact - @Model.FullName</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContactType)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID" asp-route-fromController="Contacts" asp-route-fromAction="Details" class="btn btn-info" role="button">Edit</a>
+    @*<a asp-action="Index">Back to List</a>*@
+</div>
+
+<hr />
+
+<div class="row page-heading">
+    <div class="col-sm-6">
+        <h4>Phone Numbers</h4>
+    </div>
+    <div class="col-sm-6 text-right text-left-xs">
+        <a asp-controller="ContactPhones" asp-action="Create" asp-route-contactID="@Model.ID" class="btn btn-info" role="button">Create New</a>
+        <br />
+    </div>
+</div>
+
+@if (ViewBag.OperationErrorMessage != null)
+{
+    <div class="text-danger panel-danger" style="margin: 10px 0px;">@ViewBag.OperationErrorMessage</div>
+}
+
+@if (Model.PhoneNumbers != null && Model.PhoneNumbers.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Contact Phone Type
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Extension
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PhoneNumbers)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="ContactPhones" asp-action="SetAsPrimary" asp-route-id="@item.ID" asp-route-contactID="@Model.ID" class="glyph-link">
+                            <span class="glyphicon glyphicon-asterisk" title="Set as Primary" data-toggle="tooltip"></span>
+                        </a>
+                        <a asp-controller="ContactPhones" asp-action="Edit" asp-route-id="@item.ID" asp-route-contactID="@Model.ID" class="glyph-link">
+                            <span class="glyphicon glyphicon-edit" title="Edit this phone number" data-toggle="tooltip"></span>
+                        </a>
+                        <a asp-controller="ContactPhones" asp-action="Delete" asp-route-id="@item.ID" asp-route-contactID="@Model.ID" class="glyph-link" data-delete-item-id="@item.ID">
+                            <span class="glyphicon glyphicon-remove" title="Delete this phone number" data-toggle="tooltip"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <span data-delete-item-id="@item.ID">@item.ContactPhoneType</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Extension)
+                    </td>
+                    <td>
+                        @if (item.IsPrimaryPhone == true)
+                        {
+                            @:Primary
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span>None</span>
+}
+
+@Html.Partial("DeleteConfirmationDialogPartial")
