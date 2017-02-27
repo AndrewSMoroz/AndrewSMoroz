@@ -1,5 +1,5 @@
 ﻿Assumptions
-- The target database does not exist
+- The target database does not exist, or it does but is empty
 - The DefaultConnection in appsettings.json specifies the target database server/database/credentials/etc.
 - The below commands are run from the projects's folder (not the solution): .../AndrewSMoroz/src/AndrewSMoroz
 
@@ -13,18 +13,11 @@
 
      This will create a new migration, in the specified subfolder, that will be used
 	 to create the database objects necessary for the Contacts demo application.
+	 If this migration is in the Data/Migrations folder already, you can skip this step.
+	 You can remove it with dotnet ef migrations remove -c ContactsDbContext.
 
 3. dotnet ef database update -c ContactsDbContext
 
      This will apply the new Contacts migration to the database, actually creating the database objects.
 
 
-
-
-
-
-(localdb)\MSSQLLocalDB
-localhost
-(localdb)\v11.0
-OWNER-PC
-OWNER-PC\SQLEXPRESS
