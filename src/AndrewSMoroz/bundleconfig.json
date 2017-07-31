@@ -16,6 +16,13 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/css/explore.min.css",
+    // An array of relative input file paths. Globbing patterns supported
+    "inputFiles": [
+      "wwwroot/css/explore.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/default.min.js",
     "inputFiles": [
       "wwwroot/js/default.js"
@@ -32,6 +39,19 @@
     "outputFileName": "wwwroot/js/contacts.min.js",
     "inputFiles": [
       "wwwroot/js/contacts.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    // Optinally generate .map file
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/explore.min.js",
+    "inputFiles": [
+      "wwwroot/js/explore.js"
     ],
     // Optionally specify minification options
     "minify": {

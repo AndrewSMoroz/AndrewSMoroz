@@ -1,0 +1,44 @@
+﻿
+/* Some styles in bootstrap are easy to override; others need a more specific selector */
+/* An id selector works in this case */
+body#body-explore {
+    background-color: blueviolet;
+}
+
+footer {
+    text-align: center;
+}
+
+hr {
+    border-color: darkgray;
+}
+
+table {
+    border: 2px solid #DDDDDD;
+}
+
+div.page-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+a:link {
+    color: whitesmoke;
+}
+a:visited {
+    color: whitesmoke;
+}
+a:hover {
+    color: deeppink;
+    text-decoration: none;
+}
+a:active {
+    color: whitesmoke;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
