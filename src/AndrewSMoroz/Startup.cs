@@ -51,6 +51,9 @@ namespace AndrewSMoroz
             services.AddDbContext<ContactsDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<ExploreDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -67,7 +70,8 @@ namespace AndrewSMoroz
             });
 
             services.AddOptions();                                                                      // Adds ability to inject IOptions<T>
-            services.Configure<ContactsUISettings>(Configuration.GetSection("ContactsUISettings"));     // Registers UISettings object so it can be injected
+            services.Configure<ContactsUISettings>(Configuration.GetSection("ContactsUISettings"));     // Registers ContactsUISettings object so it can be injected
+            services.Configure<ExploreUISettings>(Configuration.GetSection("ExploreUISettings"));       // Registers ExploreUISettings object so it can be injected
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -80,7 +84,9 @@ namespace AndrewSMoroz
 
         //--------------------------------------------------------------------------------------------------------------
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ContactsDbContext contactsDbcontext, IOptions<ContactsUISettings> contactsUISettings)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, 
+                              ContactsDbContext contactsDbContext, IOptions<ContactsUISettings> contactsUISettings,
+                              ExploreDbContext exploreDbContext, IOptions<ExploreUISettings> exploreUISettings)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -111,7 +117,12 @@ namespace AndrewSMoroz
 
             if (contactsUISettings.Value.InitializeDatabase)
             {
-                ContactsDbInitializer.Initialize(contactsDbcontext);
+                ContactsDbInitializer.Initialize(contactsDbContext);
+            }
+
+            if (exploreUISettings.Value.InitializeDatabase)
+            {
+                ExploreDbInitializer.Initialize(exploreDbContext);
             }
 
         }
