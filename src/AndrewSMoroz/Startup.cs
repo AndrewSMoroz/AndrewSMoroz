@@ -62,8 +62,21 @@ namespace AndrewSMoroz
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();         // Uses cookies to implement the TempData controller dictionary, which lasts for one additional request
                                                                                         // Without this, TempData would use (and require) Session
+
+
+            // Enable session
+            // Also requires call to app.UseSession() in Configure method
+            // Class SessionExtensions is also very helpful
+            services.AddDistributedMemoryCache();                                       // Adds a default in-memory implementation of IDistributedCache.
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.CookieHttpOnly = true;
+            });
+
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
@@ -107,6 +120,8 @@ namespace AndrewSMoroz
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
