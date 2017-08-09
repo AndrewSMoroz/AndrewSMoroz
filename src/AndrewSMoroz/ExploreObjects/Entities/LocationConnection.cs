@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ExploreConsole.Entities
+namespace ExploreObjects.Entities
 {
     public partial class LocationConnection
     {

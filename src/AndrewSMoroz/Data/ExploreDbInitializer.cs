@@ -1,4 +1,4 @@
-﻿using ExploreConsole.Entities;
+﻿using ExploreObjects.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ExploreConsole.Entities
+namespace ExploreObjects.Entities
 {
     public partial class Map
     {

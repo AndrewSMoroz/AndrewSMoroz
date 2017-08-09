@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExploreConsole.DTO
+namespace ExploreObjects.DTO
 {
 
     public class Location

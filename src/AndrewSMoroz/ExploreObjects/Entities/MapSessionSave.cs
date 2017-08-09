@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExploreConsole.Entities
+namespace ExploreObjects.Entities
 {
 
     public partial class MapSessionSave

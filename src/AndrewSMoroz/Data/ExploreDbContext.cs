@@ -1,4 +1,4 @@
-﻿using ExploreConsole.Entities;
+﻿using ExploreObjects.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
