@@ -92,6 +92,8 @@ namespace AndrewSMoroz
             services.AddTransient<IBusinessServices, BusinessServices>();
             services.AddTransient<IModelAdapter, ModelAdapter>();
             services.AddTransient<IUserContext, UserContext>();
+            services.AddTransient<IExploreBusinessManager, ExploreBusinessManager>();
+            services.AddTransient<IExploreDTOAdapter, ExploreDTOAdapter>();
 
         }
 

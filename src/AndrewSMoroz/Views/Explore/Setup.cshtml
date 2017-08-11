@@ -1,7 +1,36 @@
-﻿@{
+﻿@using ExploreObjects.DTO
+@model AndrewSMoroz.ViewModels.ExploreViewModels.SetupViewModel
+
+@{
     ViewData["Title"] = "Explore Setup";
 }
 
-<p>
-    Explore Setup Page
-</p>
+<form asp-action="Setup">
+    <div>
+        <h4>Choose Map to Explore</h4>
+            <div style="margin-top: 20px;">
+                <select asp-for="MapID" asp-items="ViewBag.MapList">
+                </select>
+            </div>
+            <div style="margin-top: 20px;">
+                                    
+                @foreach (SelectListItem item in ViewBag.MapList)
+                {
+                    <input id="@item.Value" type="radio" name="MapID"> <label for="@item.Value" style="font-weight: normal;">@item.Text</label><br />
+                }
+            </div>
+            <div style="margin-top: 20px;">
+                <input type="submit" value="Begin Session" />
+            </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+    </script>
+
+}

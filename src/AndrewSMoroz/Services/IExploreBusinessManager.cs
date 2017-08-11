@@ -11,6 +11,7 @@ namespace AndrewSMoroz.Services
     {
 
         MapSession GetInitialMapSession(int mapID);
+        Task<List<Map>> GetMapListAsync();
         MapState ProcessAction(MapSession mapSession);
 
     }

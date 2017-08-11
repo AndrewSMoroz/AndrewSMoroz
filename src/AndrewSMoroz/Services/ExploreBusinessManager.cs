@@ -55,6 +55,16 @@ namespace AndrewSMoroz.Services
         }
 
         //--------------------------------------------------------------------------------------------------------------
+        public async Task<List<ExploreObjects.DTO.Map>> GetMapListAsync()
+        {
+            List<ExploreObjects.Entities.Map> maps = await _exploreDbContext.Maps
+                                                                            .AsNoTracking()
+                                                                            .OrderBy(m => m.Name)
+                                                                            .ToListAsync();
+            return _dtoAdapter.ConvertMaps(maps);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
         /// <summary>
         /// Processes the action contained in the specified MapSession's MapState.RequestedAction property.
         /// </summary>

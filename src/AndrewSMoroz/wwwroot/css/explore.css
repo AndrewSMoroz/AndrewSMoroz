@@ -2,7 +2,8 @@
 /* Some styles in bootstrap are easy to override; others need a more specific selector */
 /* An id selector works in this case */
 body#body-explore {
-    background-color: blueviolet;
+    background-color: whitesmoke;
+    text-align: center;
 }
 
 footer {
@@ -24,17 +25,17 @@ div.page-heading {
 }
 
 a:link {
-    color: whitesmoke;
+    color: mediumblue;
 }
 a:visited {
-    color: whitesmoke;
+    color: mediumblue;
 }
 a:hover {
     color: deeppink;
     text-decoration: none;
 }
 a:active {
-    color: whitesmoke;
+    color: mediumblue;
 }
 
 .clearfix::after {

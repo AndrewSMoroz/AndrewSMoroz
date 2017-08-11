@@ -12,6 +12,7 @@ namespace AndrewSMoroz
     /// </summary>
     public class ExploreUISettings
     {
+        public string KeyCurrentMapSession { get; set; } = "CurrentMapSession";
         public bool InitializeDatabase { get; set; } = false;
     }
 

@@ -1,5 +1,4 @@
-﻿using ExploreObjects.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +13,41 @@ namespace AndrewSMoroz.Services
     {
 
         //--------------------------------------------------------------------------------------------------------------
-        public MapSession CreateMapSessionObject(ExploreObjects.Entities.Map map, List<ExploreObjects.Entities.Item> items)
+        /// <summary>
+        /// Converts a collection of Map entities to its DTO equivalent
+        /// </summary>
+        public List<ExploreObjects.DTO.Map> ConvertMaps(List<ExploreObjects.Entities.Map> maps)
+        {
+
+            List<ExploreObjects.DTO.Map> mapsDTO = new List<ExploreObjects.DTO.Map>();
+
+            if (maps == null)
+            {
+                return mapsDTO;
+            }
+
+            foreach (ExploreObjects.Entities.Map map in maps)
+            {
+                ExploreObjects.DTO.Map m = new ExploreObjects.DTO.Map()
+                {
+                    Id = map.Id,
+                    Name = map.Name
+                };
+                mapsDTO.Add(m);
+            }
+
+            return mapsDTO;
+
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Builds a MapSession object that contains DTO versions of the entities.
+        /// The DTO versions don't include the navigation properties.
+        /// This is necessary because the location objects contain circular references to one another that cause
+        /// problems when serializing to JSON for saving.
+        /// </summary>
+        public ExploreObjects.DTO.MapSession CreateMapSessionObject(ExploreObjects.Entities.Map map, List<ExploreObjects.Entities.Item> items)
         {
 
             // Validate that a map and at least one location is defined
@@ -42,9 +75,9 @@ namespace AndrewSMoroz.Services
 
             // Transform the Entities objects into DTO objects
 
-            MapSession newMapSession = new MapSession();
+            ExploreObjects.DTO.MapSession newMapSession = new ExploreObjects.DTO.MapSession();
 
-            newMapSession.MapDefinition = new MapDefinition();
+            newMapSession.MapDefinition = new ExploreObjects.DTO.MapDefinition();
             newMapSession.MapDefinition.Map = new ExploreObjects.DTO.Map() { Id = map.Id, Name = map.Name };
             List<ExploreObjects.DTO.Location> newLocations = new List<ExploreObjects.DTO.Location>();
             foreach (ExploreObjects.Entities.Location l in map.Locations)
@@ -61,7 +94,7 @@ namespace AndrewSMoroz.Services
             }
             newMapSession.MapDefinition.Map.Locations = newLocations;
 
-            newMapSession.MapState = new MapState();
+            newMapSession.MapState = new ExploreObjects.DTO.MapState();
             newMapSession.MapState.MapID = map.Id;
             newMapSession.MapState.CurrentLocationID = initialLocations[0].Id;
             newMapSession.MapState.ActionResultMessages = new List<string>();
