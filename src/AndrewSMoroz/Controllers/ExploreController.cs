@@ -9,6 +9,7 @@ using AndrewSMoroz.Services;
 using ExploreObjects.DTO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AndrewSMoroz.ViewModels.ExploreViewModels;
+using Microsoft.AspNetCore.Routing;
 
 namespace AndrewSMoroz.Controllers
 {
@@ -38,9 +39,48 @@ namespace AndrewSMoroz.Controllers
 
         }
 
-        //TODO: Implement POST setup method that creates a MapSession and puts it into the session
-        //      Don't forget about the cross site forgery token attribute for POST methods
+        //--------------------------------------------------------------------------------------------------------------
+        // POST: Explore/Setup
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Setup([Bind("MapID")] SetupViewModel setupViewModel)
+        {
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (setupViewModel.MapID == 1) { throw new Exception("Well, that didn't work..."); }
+                    //TODO: Use the ViewModel instead of the ViewBag for the list of Maps.
+                    //      Make the view select the one in the MapID field.
+                    //      Use LINQ to set it to the first one in the GET (or if there's an invalid one in the POST), the posted one in the POST
+                    //TODO: Create MapSession object and put it in the session
+                    //TODO: Run the LOOK command on it first
+                    //TODO: The MapSession object may be the model for the Play view
+                    //int newID = await _businessServices.CreateCompanyAsync(companyDetailsViewModel);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = ex.Message;
+                    await CreateSelectListsAsync(null);
+                    return View(setupViewModel);
+                }
+            }
+
+            return RedirectToAction("Play");
+
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        // GET: Explore/ProcessCommand
+        public async Task<IActionResult> Play([Bind("CommandText")] PlayViewModel playViewModel)
+        {
+
+            return View();
+
+        }
+
+        //TODO: Implement POST setup method that creates a MapSession and puts it into the session
         //HttpContext.Session.Set<MapSession>(SessionKeyDate, DateTime.Now);
         //var date = HttpContext.Session.Get<MapSession>(SessionKeyDate);
 

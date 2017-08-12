@@ -9,14 +9,14 @@
     <div>
         <h4>Choose Map to Explore</h4>
             <div style="margin-top: 20px;">
-                <select asp-for="MapID" asp-items="ViewBag.MapList">
-                </select>
-            </div>
-            <div style="margin-top: 20px;">
-                                    
-                @foreach (SelectListItem item in ViewBag.MapList)
-                {
-                    <input id="@item.Value" type="radio" name="MapID"> <label for="@item.Value" style="font-weight: normal;">@item.Text</label><br />
+                @{
+                    int i = 0;
+                    foreach (SelectListItem item in ViewBag.MapList)
+                    {
+                        i++;
+                        bool isChecked = i == 1;
+                        <input id="@item.Value" type="radio" name="MapID" value="@item.Value" checked="@isChecked"> <label for="@item.Value" style="font-weight: normal;">@item.Text</label><br />
+                    }
                 }
             </div>
             <div style="margin-top: 20px;">
@@ -24,6 +24,14 @@
             </div>
     </div>
 </form>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <br />
+    <div class="text-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
 
 @section Scripts {
 
