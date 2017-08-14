@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace AndrewSMoroz.ViewModels.ExploreViewModels
 {
 
-    public class PlayViewModel
+    public class ProcessCommandViewModel
     {
 
         public string CommandText { get; set; }

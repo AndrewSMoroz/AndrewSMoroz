@@ -8,20 +8,18 @@
 <form asp-action="Setup">
     <div>
         <h4>Choose Map to Explore</h4>
-            <div style="margin-top: 20px;">
-                @{
-                    int i = 0;
-                    foreach (SelectListItem item in ViewBag.MapList)
-                    {
-                        i++;
-                        bool isChecked = i == 1;
-                        <input id="@item.Value" type="radio" name="MapID" value="@item.Value" checked="@isChecked"> <label for="@item.Value" style="font-weight: normal;">@item.Text</label><br />
-                    }
+        <div style="margin-top: 20px;">
+            @{
+                foreach (Map map in Model.Maps)
+                {
+                    bool isChecked = map.Id == Model.MapID;
+                    <input id="@map.Id" type="radio" name="MapID" value="@map.Id" checked="@isChecked"> <label for="@map.Id" style="font-weight: normal;">@map.Name</label><br />
                 }
-            </div>
-            <div style="margin-top: 20px;">
-                <input type="submit" value="Begin Session" />
-            </div>
+            }
+        </div>
+        <div style="margin-top: 20px;">
+            <input type="submit" value="Begin Session" />
+        </div>
     </div>
 </form>
 
@@ -38,7 +36,6 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
-
     </script>
 
 }

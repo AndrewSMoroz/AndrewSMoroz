@@ -14,6 +14,8 @@ namespace AndrewSMoroz.ViewModels.ExploreViewModels
         [Display(Name = "Map")]
         public int MapID { get; set; }
 
+        public List<ExploreObjects.DTO.Map> Maps { get; set; }
+
     }
 
 }

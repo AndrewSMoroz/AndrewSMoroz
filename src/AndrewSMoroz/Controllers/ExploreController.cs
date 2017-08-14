@@ -34,9 +34,13 @@ namespace AndrewSMoroz.Controllers
         public async Task<IActionResult> Setup()
         {
             SetupViewModel vm = new SetupViewModel();
-            await CreateSelectListsAsync(null);
+            vm.Maps = await _businessManager.GetMapListAsync();
+            vm.MapID = 0;
+            if (vm.Maps != null && vm.Maps.Any())
+            {
+                vm.MapID = vm.Maps.First().Id;
+            }
             return View(vm);
-
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -46,25 +50,25 @@ namespace AndrewSMoroz.Controllers
         public async Task<IActionResult> Setup([Bind("MapID")] SetupViewModel setupViewModel)
         {
 
-            if (ModelState.IsValid)
+            try
             {
-                try
+
+                MapSession currentMapSession = await _businessManager.GetInitialMapSessionAsync(setupViewModel.MapID);
+                HttpContext.Session.Set<MapSession>(_uiSettings.KeyCurrentMapSession, currentMapSession);
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                setupViewModel.Maps = await _businessManager.GetMapListAsync();
+                if (setupViewModel.Maps != null && setupViewModel.Maps.Any())
                 {
-                    if (setupViewModel.MapID == 1) { throw new Exception("Well, that didn't work..."); }
-                    //TODO: Use the ViewModel instead of the ViewBag for the list of Maps.
-                    //      Make the view select the one in the MapID field.
-                    //      Use LINQ to set it to the first one in the GET (or if there's an invalid one in the POST), the posted one in the POST
-                    //TODO: Create MapSession object and put it in the session
-                    //TODO: Run the LOOK command on it first
-                    //TODO: The MapSession object may be the model for the Play view
-                    //int newID = await _businessServices.CreateCompanyAsync(companyDetailsViewModel);
+                    if (setupViewModel.Maps.SingleOrDefault(m => m.Id == setupViewModel.MapID) == null)
+                    {
+                        setupViewModel.MapID = setupViewModel.Maps.First().Id;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    ViewBag.ErrorMessage = ex.Message;
-                    await CreateSelectListsAsync(null);
-                    return View(setupViewModel);
-                }
+                return View(setupViewModel);
             }
 
             return RedirectToAction("Play");
@@ -72,26 +76,38 @@ namespace AndrewSMoroz.Controllers
         }
 
         //--------------------------------------------------------------------------------------------------------------
-        // GET: Explore/ProcessCommand
-        public async Task<IActionResult> Play([Bind("CommandText")] PlayViewModel playViewModel)
+        // GET: Explore/Play
+        public IActionResult Play()
         {
 
-            return View();
+            MapSession currentMapSession = null;
+            try
+            {
+                currentMapSession = HttpContext.Session.Get<MapSession>(_uiSettings.KeyCurrentMapSession);
+                if (currentMapSession == null)
+                {
+                    throw new Exception("Valid map session not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+            }
+            return View(currentMapSession);
 
         }
 
-        //TODO: Implement POST setup method that creates a MapSession and puts it into the session
-        //HttpContext.Session.Set<MapSession>(SessionKeyDate, DateTime.Now);
-        //var date = HttpContext.Session.Get<MapSession>(SessionKeyDate);
-
         //--------------------------------------------------------------------------------------------------------------
-        /// <summary>
-        /// Creates list to be used as the set of choices for the Maps field and puts it into the ViewBag
-        /// </summary>
-        private async Task CreateSelectListsAsync(object selectedMapID = null)
+        // GET: Explore/ProcessCommand
+        public IActionResult ProcessCommand()
         {
-            IEnumerable<Map> maps = await _businessManager.GetMapListAsync();
-            ViewBag.MapList = new SelectList(maps, "Id", "Name", selectedMapID);
+
+            //TODO: Create partial view to represent command results
+            //TODO: Call via ajax
+            //TODO: Append valid directions onto each command result
+
+            return View();
+
         }
 
     }

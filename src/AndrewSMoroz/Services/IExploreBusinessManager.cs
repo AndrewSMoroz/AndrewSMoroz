@@ -10,7 +10,7 @@ namespace AndrewSMoroz.Services
     public interface IExploreBusinessManager
     {
 
-        MapSession GetInitialMapSession(int mapID);
+        Task<MapSession> GetInitialMapSessionAsync(int mapID);
         Task<List<Map>> GetMapListAsync();
         MapState ProcessAction(MapSession mapSession);
 

@@ -28,7 +28,7 @@ namespace AndrewSMoroz.Services
         /// <summary>
         /// Returns an object containing the definition of the specified map ID, and initializes the state of the user's session in that map
         /// </summary>
-        public MapSession GetInitialMapSession(int mapID)
+        public async Task<MapSession> GetInitialMapSessionAsync(int mapID)
         {
 
             MapSession mapSession = new MapSession();
@@ -36,16 +36,16 @@ namespace AndrewSMoroz.Services
             List<ExploreObjects.Entities.Item> items;
 
             // Retrieve domain model entites from data layer
-            map = _exploreDbContext.Maps
-                                   .Include(m => m.Locations)
-                                       .ThenInclude(l => l.LocationConnectionFromLocations)
-                                   .AsNoTracking()
-                                   .SingleOrDefault(m => m.Id == mapID);
+            map = await _exploreDbContext.Maps
+                                        .Include(m => m.Locations)
+                                            .ThenInclude(l => l.LocationConnectionFromLocations)
+                                        .AsNoTracking()
+                                        .SingleOrDefaultAsync(m => m.Id == mapID);
 
-            items = _exploreDbContext.Items
-                                     .Where(i => i.Location.MapId == mapID)
-                                     .AsNoTracking()
-                                     .ToList();
+            items = await _exploreDbContext.Items
+                                           .Where(i => i.Location.MapId == mapID)
+                                           .AsNoTracking()
+                                           .ToListAsync();
 
             // Transform domain model entites into DTOs and return
             mapSession = _dtoAdapter.CreateMapSessionObject(map, items);
@@ -55,6 +55,9 @@ namespace AndrewSMoroz.Services
         }
 
         //--------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// 
+        /// </summary>
         public async Task<List<ExploreObjects.DTO.Map>> GetMapListAsync()
         {
             List<ExploreObjects.Entities.Map> maps = await _exploreDbContext.Maps

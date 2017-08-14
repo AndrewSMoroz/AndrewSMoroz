@@ -1,5 +1,25 @@
-﻿@{
+﻿@using ExploreObjects.DTO
+@model ExploreObjects.DTO.MapSession
+
+@{
     ViewData["Title"] = "Explore Play";
 }
 
-Play
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="text-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@{
+
+    if (Model != null && Model.MapState.ActionResultMessages != null)
+    {
+        foreach (string message in Model.MapState.ActionResultMessages)
+        {
+            @message<br />
+        }
+    }
+
+}
