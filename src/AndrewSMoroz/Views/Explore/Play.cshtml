@@ -10,8 +10,13 @@
     <div class="text-danger">
         @ViewBag.ErrorMessage
     </div>
+    return;
 }
 
+<input id="txtCommandText" class="explore-input" type="text" size="50" maxlength="500" />
+<input id="btnSubmitCommand" type="button" value="Submit Command" />
+
+<div id="divOutput" class="explore-output">
 @{
 
     if (Model != null && Model.MapState.ActionResultMessages != null)
@@ -23,3 +28,80 @@
     }
 
 }
+</div>
+
+@section Scripts {
+
+<script>
+
+    ////--------------------------------------------------------------------------------------------------------------
+    //// This uses Ajax to fetch the checkboxes html and put it into the div that has been defined to hold it
+    //function GetContactCheckboxes()
+    //{
+    //    var companyID = $("select#selCompanies").val();
+    //    if (companyID == "") {
+    //        $("div#contact-checkboxes").html("");
+    //    }
+    //    else {
+    //        $.get("/Positions/ContactsForCompany/" + companyID,
+    //              function (data, status) {
+    //                  $("div#contact-checkboxes").html(data);
+    //                  CheckContactCheckboxes();
+    //              }
+    //        );
+    //    }
+    //}
+
+    //--------------------------------------------------------------------------------------------------------------
+    // Send input command text to server via ajax and display response
+    function SubmitCommand() {
+
+        var commandText = $("#txtCommandText").val();
+        if ($.trim(commandText) == "") {
+            ResetInputControls();
+            return;
+        }
+
+        $.post("/Explore/ProcessCommand",
+        {
+            CommandText: commandText
+        },
+        function (data, status) {
+            ResetInputControls();
+            $("#divOutput").html(data + $("#divOutput").html());
+            //alert("Data: " + data + "\nStatus: " + status);
+            //TODO: Maybe use different colors  in alternating responses?
+            //TODO: Decide how to deal with different values for "status"
+        });
+
+    }
+
+    //--------------------------------------------------------------------------------------------------------------
+    // Reset input controls to their default states
+    function ResetInputControls() {
+        $("#txtCommandText").val("");
+        $("#txtCommandText").focus();
+    }
+
+    //--------------------------------------------------------------------------------------------------------------
+    // Attach event handlers and call functions on initial page load
+    $(document).ready(function() {
+
+        $("#btnSubmitCommand").click(function () {
+            SubmitCommand();
+        });
+
+        $('#txtCommandText').keypress(function (event) {
+            if (event.keyCode == 13) {
+                $('#btnSubmitCommand').click();
+            }
+        });
+
+        ResetInputControls();
+
+    });
+
+</script>
+
+}
+

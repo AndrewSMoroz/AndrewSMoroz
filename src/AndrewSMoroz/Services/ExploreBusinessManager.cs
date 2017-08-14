@@ -47,8 +47,13 @@ namespace AndrewSMoroz.Services
                                            .AsNoTracking()
                                            .ToListAsync();
 
-            // Transform domain model entites into DTOs and return
+            // Transform domain model entites into DTOs
             mapSession = _dtoAdapter.CreateMapSessionObject(map, items);
+
+            mapSession.MapState.ActionResultMessages.Add(string.Format("Beginning session for Map {0} - {1}", mapID.ToString(), mapSession.MapDefinition.Map.Name));
+            mapSession.MapState.ActionResultMessages.Add("Type 'HELP' for a list of recognized commands.");
+            mapSession.MapState.ActionResultMessages.Add("");
+
             ProcessActionLook(mapSession);
             return mapSession;
 

@@ -6,6 +6,32 @@ body#body-explore {
     text-align: center;
 }
 
+.explore-input {
+    background-color: black;
+    border: 2px solid limegreen;
+    color: limegreen;
+    font-family: 'Courier New';
+    padding: 2px;
+}
+
+.explore-output {
+    background-color: black;
+    border: 2px solid limegreen;
+    color: limegreen;
+    font-family: 'Courier New';
+    margin-top: 20px;
+    overflow-x: auto;
+    overflow-y: scroll;
+    padding: 15px;
+    text-align: left;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+.explore-output-alt-color {
+    color: goldenrod;
+}
+
 footer {
     text-align: center;
 }
@@ -25,17 +51,20 @@ div.page-heading {
 }
 
 a:link {
-    color: mediumblue;
+    color: black;
+    text-decoration: underline;
 }
 a:visited {
-    color: mediumblue;
+    color: black;
+    text-decoration: underline;
 }
 a:hover {
-    color: deeppink;
-    text-decoration: none;
+    color: limegreen;
+    text-decoration: underline;
 }
 a:active {
-    color: mediumblue;
+    color: black;
+    text-decoration: underline;
 }
 
 .clearfix::after {

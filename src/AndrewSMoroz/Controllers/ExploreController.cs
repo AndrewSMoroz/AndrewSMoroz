@@ -98,15 +98,22 @@ namespace AndrewSMoroz.Controllers
         }
 
         //--------------------------------------------------------------------------------------------------------------
-        // GET: Explore/ProcessCommand
-        public IActionResult ProcessCommand()
+        // POST: Explore/ProcessCommand
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult ProcessCommand(string CommandText)
         {
 
-            //TODO: Create partial view to represent command results
-            //TODO: Call via ajax
+            //TODO: Read MapSession from session
+            //TODO: Call appropriate command
             //TODO: Append valid directions onto each command result
+            //TODO: Put new MapSession object in session
 
-            return View();
+            List<string> temp = new List<string>();
+            temp.Add("hi");
+            temp.Add("there");
+
+            return View(temp);
 
         }
 
