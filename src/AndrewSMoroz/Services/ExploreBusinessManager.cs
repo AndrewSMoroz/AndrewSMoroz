@@ -61,7 +61,7 @@ namespace AndrewSMoroz.Services
 
         //--------------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// 
+        /// Returns a collection of Map DTOs
         /// </summary>
         public async Task<List<ExploreObjects.DTO.Map>> GetMapListAsync()
         {
@@ -217,9 +217,11 @@ namespace AndrewSMoroz.Services
         private void ProcessActionLook(MapSession mapSession)
         {
 
+            // Put description of new location into results
             ExploreObjects.DTO.Location currentLocation = mapSession.MapDefinition.Map.Locations.Single(l => l.Id == mapSession.MapState.CurrentLocationID);
             mapSession.MapState.ActionResultMessages.Add(currentLocation.Name);
 
+            // Put description of any items present in new location into results
             List<ExploreObjects.DTO.Item> items = mapSession.MapState.Items.Where(i => i.LocationId == mapSession.MapState.CurrentLocationID).ToList();
             if (items.Any())
             {
@@ -228,6 +230,14 @@ namespace AndrewSMoroz.Services
                 {
                     mapSession.MapState.ActionResultMessages.Add(item.BuildGeneralDescription());
                 }
+            }
+
+            // Put list of available directions that can can be reached from new location into results
+            mapSession.MapState.ActionResultMessages.Add("");
+            List<string> availableDirections = currentLocation.LocationConnections.Select(lc => lc.Direction).ToList();
+            if (availableDirections.Any())
+            {
+                mapSession.MapState.ActionResultMessages.Add("Available directions from this location: " + string.Join(", ", availableDirections));
             }
 
         }
@@ -411,8 +421,6 @@ namespace AndrewSMoroz.Services
             mapSession.MapState.ActionResultMessages.Add("SAVE");
             mapSession.MapState.ActionResultMessages.Add("RESTORE");
             mapSession.MapState.ActionResultMessages.Add("HELP");
-            mapSession.MapState.ActionResultMessages.Add("EXIT");
-
         }
 
     }

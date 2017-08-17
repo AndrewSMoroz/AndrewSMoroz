@@ -34,24 +34,6 @@
 
 <script>
 
-    ////--------------------------------------------------------------------------------------------------------------
-    //// This uses Ajax to fetch the checkboxes html and put it into the div that has been defined to hold it
-    //function GetContactCheckboxes()
-    //{
-    //    var companyID = $("select#selCompanies").val();
-    //    if (companyID == "") {
-    //        $("div#contact-checkboxes").html("");
-    //    }
-    //    else {
-    //        $.get("/Positions/ContactsForCompany/" + companyID,
-    //              function (data, status) {
-    //                  $("div#contact-checkboxes").html(data);
-    //                  CheckContactCheckboxes();
-    //              }
-    //        );
-    //    }
-    //}
-
     //--------------------------------------------------------------------------------------------------------------
     // Send input command text to server via ajax and display response
     function SubmitCommand() {
@@ -69,9 +51,7 @@
         function (data, status) {
             ResetInputControls();
             $("#divOutput").html(data + $("#divOutput").html());
-            //alert("Data: " + data + "\nStatus: " + status);
-            //TODO: Maybe use different colors  in alternating responses?
-            //TODO: Decide how to deal with different values for "status"
+            //alert(data);
         });
 
     }

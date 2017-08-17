@@ -1,7 +1,18 @@
 ﻿@model IEnumerable<string>
 @(Layout = null)
-@foreach (string st in Model)
+
+@if (ViewBag.ErrorMessage != null)
 {
-    @st<br />
+    <span class="text-danger"><strong>@ViewBag.ErrorMessage</strong></span><br />
+}
+else
+{
+    @:&gt;
+    <span class="explore-command-text">@ViewBag.CommandText</span><br />
+    <br />
+    @foreach (string st in Model)
+    {
+        @st<br />
+    }
 }
 <br />

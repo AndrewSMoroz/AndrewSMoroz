@@ -100,20 +100,54 @@ namespace AndrewSMoroz.Controllers
         //--------------------------------------------------------------------------------------------------------------
         // POST: Explore/ProcessCommand
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public IActionResult ProcessCommand(string CommandText)
         {
 
-            //TODO: Read MapSession from session
-            //TODO: Call appropriate command
-            //TODO: Append valid directions onto each command result
-            //TODO: Put new MapSession object in session
+            MapSession currentMapSession = null;
+            try
+            {
 
-            List<string> temp = new List<string>();
-            temp.Add("hi");
-            temp.Add("there");
+                // Make sure there is a valid MapSession object in the session
+                currentMapSession = HttpContext.Session.Get<MapSession>(_uiSettings.KeyCurrentMapSession);
+                if (currentMapSession == null)
+                {
+                    throw new Exception("Valid map session not found.");
+                }
 
-            return View(temp);
+                // Parse the command text input
+                string userInput = "";
+                string[] userInputTokens = null;
+
+                userInput = CommandText;
+                if (string.IsNullOrWhiteSpace(userInput))
+                {
+                    return View(new List<string>());
+                }
+
+                // Put the first word into the RequestedAction property; and the rest, if any, into RequestedActionTarget
+                currentMapSession.MapState.RequestedAction = null;
+                currentMapSession.MapState.RequestedActionTarget = null;
+                userInputTokens = userInput.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                currentMapSession.MapState.RequestedAction = userInputTokens[0].ToUpper();
+                if (userInputTokens.Length > 1)
+                {
+                    currentMapSession.MapState.RequestedActionTarget = string.Join(" ", userInputTokens, 1, userInputTokens.Length - 1).ToUpper();
+                }
+
+                // Process the command and put the new MapState object into the session
+                currentMapSession.MapState = _businessManager.ProcessAction(currentMapSession);
+                //currentMapSession.MapState.ActionResultMessages.Insert(0, "");
+                //currentMapSession.MapState.ActionResultMessages.Insert(0, "> " + (CommandText ?? "").ToUpper());
+                HttpContext.Session.Set<MapSession>(_uiSettings.KeyCurrentMapSession, currentMapSession);
+                ViewBag.CommandText = (CommandText ?? "").ToUpper();
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+            }
+
+            return View(currentMapSession.MapState.ActionResultMessages);
 
         }
 
