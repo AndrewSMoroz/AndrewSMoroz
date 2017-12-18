@@ -93,3 +93,15 @@ div.demo-item-link:hover {
     border-color: darkblue;
     color: darkblue;
 }
+
+.logo-mcp {
+    max-width: 251px;
+    margin: auto;
+    display: block;
+}
+
+.logo-exam {
+    width: 40%;
+    height: auto;
+    margin: 10px;
+}
