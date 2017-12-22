@@ -8,9 +8,10 @@ using AndrewSMoroz.Data;
 namespace AndrewSMoroz.Data.Migrations
 {
     [DbContext(typeof(ContactsDbContext))]
-    partial class ContactsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171221000258_ContactsAddRecruiter")]
+    partial class ContactsAddRecruiter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")

@@ -806,6 +806,11 @@ namespace AndrewSMoroz.Services
         public async Task PopulateDataForNewUser(string userName)
         {
 
+            if (userName.Equals(ContactsDbInitializer.USER_NAME, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return;
+            }
+
             //----------------------------------------------------------------------------------------------------------
             EventType[] eventTypes = new EventType[]
             {
@@ -830,7 +835,8 @@ namespace AndrewSMoroz.Services
                 new ContactType { Sequence = 30, Description = "Other Manager", UserName = userName },
                 new ContactType { Sequence = 40, Description = "Developer", UserName = userName },
                 new ContactType { Sequence = 50, Description = "QA", UserName = userName },
-                new ContactType { Sequence = 50, Description = "Owner", UserName = userName },
+                new ContactType { Sequence = 60, Description = "Owner", UserName = userName },
+                new ContactType { Sequence = 70, Description = "Recruiter", UserName = userName },
             };
             foreach (ContactType ct in contactTypes)
             {

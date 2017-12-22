@@ -11,6 +11,8 @@ namespace AndrewSMoroz.Data
     public static class ContactsDbInitializer
     {
 
+        public const string USER_NAME = "andrewsmoroz@yahoo.com";
+
         public static void Initialize(ContactsDbContext context)
         {
 
@@ -23,10 +25,9 @@ namespace AndrewSMoroz.Data
             //    Command Line Interface tools
             //    Creates a migration to serve as a starting point, and applies it
 
-            const string USER_NAME = "andrewsmoroz@yahoo.com";
 
             // Look for data in lookup tables
-            if (context.EventTypes.Any())
+            if (context.States.Any())
             {
                 return;   // DB has already been initialized with test data
             }
@@ -55,7 +56,8 @@ namespace AndrewSMoroz.Data
                 new ContactType { Sequence = 30, Description = "Other Manager", UserName = USER_NAME },
                 new ContactType { Sequence = 40, Description = "Developer", UserName = USER_NAME },
                 new ContactType { Sequence = 50, Description = "QA", UserName = USER_NAME },
-                new ContactType { Sequence = 50, Description = "Owner", UserName = USER_NAME },
+                new ContactType { Sequence = 60, Description = "Owner", UserName = USER_NAME },
+                new ContactType { Sequence = 70, Description = "Recruiter", UserName = USER_NAME },
             };
             foreach (ContactType ct in contactTypes)
             {

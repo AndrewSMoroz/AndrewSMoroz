@@ -51,6 +51,9 @@ namespace AndrewSMoroz.Data
             modelBuilder.Entity<EventContact>().ToTable("EventContact");
             modelBuilder.Entity<State>().ToTable("State", "lookup");
 
+            // Set default values for columns that need them
+            modelBuilder.Entity<Company>().Property(p => p.IsRecruiter).HasDefaultValue(false);
+
             // This is how you get EF to create a composite primary key
             modelBuilder.Entity<PositionContact>().HasKey(pc => new { pc.PositionID, pc.ContactID });
             modelBuilder.Entity<EventContact>().HasKey(ac => new { ac.EventID, ac.ContactID });
@@ -62,6 +65,13 @@ namespace AndrewSMoroz.Data
                                            .HasForeignKey(d => d.CompanyID)
                                            .OnDelete(DeleteBehavior.Restrict)
                                            .HasConstraintName("FK_Position_CompanyID");
+
+            modelBuilder.Entity<Position>().HasOne(d => d.RecruiterCompany)
+                                           .WithMany(p => p.RecruiterPositions)
+                                           .HasForeignKey(d => d.RecruiterCompanyID)
+                                           .OnDelete(DeleteBehavior.Restrict)
+                                           .HasConstraintName("FK_Position_RecruiterCompanyID")
+                                           .IsRequired(false);
 
             modelBuilder.Entity<Event>().HasOne(d => d.Position)
                                                 .WithMany(p => p.Events)

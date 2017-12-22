@@ -31,9 +31,12 @@ namespace AndrewSMoroz.Models
         [MaxLength(256)]
         public string UserName { get; set; }
 
+        public bool IsRecruiter { get; set; }
+
         #region Navigation Properties
 
         public ICollection<Position> Positions { get; set; }
+        public ICollection<Position> RecruiterPositions { get; set; }
         public ICollection<Contact> Contacts { get; set; }
 
         #endregion

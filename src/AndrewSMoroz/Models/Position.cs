@@ -12,6 +12,7 @@ namespace AndrewSMoroz.Models
 
         public int ID { get; set; }
         public int CompanyID { get; set; }
+        public int? RecruiterCompanyID { get; set; }
 
         [MaxLength(100)]
         public string Title { get; set; }
@@ -28,6 +29,7 @@ namespace AndrewSMoroz.Models
         #region Navigation Properties
 
         public Company Company { get; set; }
+        public Company RecruiterCompany { get; set; }
         public ICollection<Event> Events { get; set; }
         public ICollection<PositionContact> PositionContacts { get; set; }
 

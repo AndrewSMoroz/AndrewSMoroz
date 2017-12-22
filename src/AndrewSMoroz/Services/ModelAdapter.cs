@@ -50,6 +50,7 @@ namespace AndrewSMoroz.Services
                     Address = company.Address,
                     City = company.City,
                     ID = company.ID,
+                    IsRecruiter = company.IsRecruiter,
                     Name = company.Name,
                     PostalCode = company.PostalCode,
                     State = company.State

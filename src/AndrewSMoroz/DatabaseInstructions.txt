@@ -19,6 +19,7 @@
 3. dotnet ef database update -c ContactsDbContext
 
      This will apply the new Contacts migration to the database, actually creating the database objects.
+	 This will run all migrations for this context, even the one in #6 below, if it exists already.
 
 
 4. dotnet ef migrations add CreateExploreSchema -c ExploreDbContext -o Data\Migrations
@@ -32,3 +33,13 @@
 
 	This will apply the new Contacts migration to the database, actually creating the database objects.
 
+6. dotnet ef migrations add ContactsAddRecruiter -c ContactsDbContext -o Data\Migrations
+
+     This will create a new migration, in the specified subfolder, that will be used
+	 to add support for the concept of recruiters.
+	 If this migration is in the Data/Migrations folder already, you can skip this step.
+	 You can remove it with dotnet ef migrations remove -c ContactsDbContext.
+
+7. dotnet ef database update -c ContactsDbContext
+
+     This will apply the new Contacts migration to the database, actually creating the database objects.

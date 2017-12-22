@@ -1,0 +1,31 @@
+﻿
+- Contacts/Create: Either filter the Company dropdown by recruiter/non recruiter, OR
+                   Append "(recruiter)" after the name in the dropdown
+- Contacts/Edit/1: Same changes as for Contacts/Create
++ Companies/Index: Add column for Is Recruiter
+- Companies/Details/1: Display whether company is a recruiter in a read-only way - could be "RECRUITER" styled somehow
+                       Show either "Positions at IBM" or "Positions Represented by TekSystems" section as appropriate
+- Companies/Edit/1: Display whether company is a recruiter in a read-only way
+- Companies/Create: Allow input of whether company is a recruiter or not - make it clear that it can't be changed later
+- Positions/Index: Add column for Recruiter
+- Positions/Create: Move Company dropdown down just above Contacts section
+                    Filter Company dropdown to show only non-recruiters
+                    Create new Recruiter dropdown with only recruiters
+                    Create new Recruiter Contacts section under Recruiter dropdown
+- Positions/Edit/1: Move Company dropdown down just above Contacts section
+                    Filter Company dropdown to show only non-recruiters
+                    Create new Recruiter dropdown with only recruiters
+                    Create new Recruiter Contacts section under Recruiter dropdown
++ DB Initialization: Remove the part that populates lookup lists - the new user signup functionality will do that
+                     Add a new Contact Type: Recruiter
+
+
+
+select	c.ID		as 'Hiring Company ID',
+		c.[Name]	as 'Hiring Company Name',
+		r.ID		as 'Recruiter Company ID',
+		r.[Name]	as 'Recruiter Company Name',
+		p.Title		as 'Position Title'
+from					dbo.Position	p
+		inner join		dbo.Company		c	on c.ID = p.CompanyID
+		left outer join	dbo.Company		r	on r.ID = p.RecruiterCompanyID

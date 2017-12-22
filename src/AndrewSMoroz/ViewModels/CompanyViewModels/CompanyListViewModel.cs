@@ -19,6 +19,9 @@ namespace AndrewSMoroz.ViewModels.CompanyViewModels
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
 
+        [Display(Name = "Is Recruiter")]
+        public bool IsRecruiter { get; set; }
+
     }
 
 }
