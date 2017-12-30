@@ -24,6 +24,11 @@ namespace AndrewSMoroz.ViewModels.PositionViewModels
         [Display(Name = "Company")]
         public string CompanyName { get; set; }
 
+        public int? RecruiterCompanyID { get; set; }
+
+        [Display(Name = "Recruiter")]
+        public string RecruiterCompanyName { get; set; }
+
         [Display(Name = "Most Recent Event")]
         public string MostRecentEventType { get; set; }
 

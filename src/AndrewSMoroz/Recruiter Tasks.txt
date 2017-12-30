@@ -1,13 +1,16 @@
 ﻿
+- Contacts/Index: Add column for Is Recruiter
+- Contacts/Details/1: Add indication of whether company is a recruiter
 - Contacts/Create: Either filter the Company dropdown by recruiter/non recruiter, OR
                    Append "(recruiter)" after the name in the dropdown
 - Contacts/Edit/1: Same changes as for Contacts/Create
 + Companies/Index: Add column for Is Recruiter
-- Companies/Details/1: Display whether company is a recruiter in a read-only way - could be "RECRUITER" styled somehow
++ Companies/Details/1: Display whether company is a recruiter in a read-only way
                        Show either "Positions at IBM" or "Positions Represented by TekSystems" section as appropriate
-- Companies/Edit/1: Display whether company is a recruiter in a read-only way
 - Companies/Create: Allow input of whether company is a recruiter or not - make it clear that it can't be changed later
-- Positions/Index: Add column for Recruiter
+- Companies/Edit/1: Display whether company is a recruiter in a read-only way
+- Positions/Index: Add column for Is Recruiter
+- Positions/Details/1: Add indications of whether company is a recruiter
 - Positions/Create: Move Company dropdown down just above Contacts section
                     Filter Company dropdown to show only non-recruiters
                     Create new Recruiter dropdown with only recruiters

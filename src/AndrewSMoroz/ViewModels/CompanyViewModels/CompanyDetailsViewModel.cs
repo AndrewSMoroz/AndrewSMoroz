@@ -33,7 +33,11 @@ namespace AndrewSMoroz.ViewModels.CompanyViewModels
         [RegularExpression(@"^$|^(\d{5})(?:-?(\d{4}))?$", ErrorMessage = "Postal code must be in the format 00000 or 00000-0000.")]
         public string PostalCode { get; set; }
 
+        [Display(Name = "Is Recruiter")]
+        public bool IsRecruiter { get; set; }
+
         public IEnumerable<PositionListViewModel> Positions { get; set; }
+        public IEnumerable<PositionListViewModel> RecruiterPositions { get; set; }
         public IEnumerable<ContactListViewModel> Contacts { get; set; }
 
     }

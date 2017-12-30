@@ -78,9 +78,11 @@ namespace AndrewSMoroz.Services
                 City = company.City,
                 Contacts = ConvertContacts(company.Contacts),
                 ID = company.ID,
+                IsRecruiter = company.IsRecruiter,
                 Name = company.Name,
                 Positions = ConvertPositions(company.Positions),
                 PostalCode = company.PostalCode,
+                RecruiterPositions = ConvertPositions(company.RecruiterPositions),
                 State = company.State
             };
 
@@ -438,6 +440,8 @@ namespace AndrewSMoroz.Services
                     DatePosted = position.DatePosted,
                     Description = position.Description,
                     ID = position.ID,
+                    RecruiterCompanyID = position.RecruiterCompanyID,
+                    RecruiterCompanyName = (position.RecruiterCompany != null ? position.RecruiterCompany.Name : null),
                     Title = position.Title,
                 };
                 Event mostRecentEvent = position.Events.OrderByDescending(ev => ev.DateTime).FirstOrDefault();
