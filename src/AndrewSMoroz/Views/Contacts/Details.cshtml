@@ -19,6 +19,7 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CompanyName)
+            @(Model.CompanyIsRecruiter ? " (recruiter)" : null)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ContactType)

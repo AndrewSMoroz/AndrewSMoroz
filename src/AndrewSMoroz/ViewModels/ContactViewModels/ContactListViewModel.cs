@@ -18,6 +18,8 @@ namespace AndrewSMoroz.ViewModels.ContactViewModels
         [Display(Name = "Company")]
         public string CompanyName { get; set; }
 
+        public bool CompanyIsRecruiter { get; set; }
+
         public int CompanyID { get; set; }
 
         [Display(Name = "Type")]

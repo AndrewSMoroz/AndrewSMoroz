@@ -144,6 +144,7 @@ namespace AndrewSMoroz.Services
                 {
                     CompanyName = contact.Company.Name,
                     CompanyID = contact.CompanyID,
+                    CompanyIsRecruiter = contact.Company.IsRecruiter,
                     ContactType = contact.ContactType.Description,
                     FullName = contact.FullName,
                     ID = contact.ID,
@@ -173,6 +174,7 @@ namespace AndrewSMoroz.Services
             ContactDetailsViewModel viewModel = new ContactDetailsViewModel()
             {
                 CompanyID = contact.CompanyID,
+                CompanyIsRecruiter = contact.Company.IsRecruiter,
                 CompanyName = contact.Company.Name,
                 ContactType = contact.ContactType.Description,
                 ContactTypeID = contact.ContactTypeID,

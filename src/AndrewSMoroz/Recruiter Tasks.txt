@@ -1,9 +1,8 @@
 ﻿
-- Contacts/Index: Add column for Is Recruiter
-- Contacts/Details/1: Add indication of whether company is a recruiter
-- Contacts/Create: Either filter the Company dropdown by recruiter/non recruiter, OR
-                   Append "(recruiter)" after the name in the dropdown
-- Contacts/Edit/1: Same changes as for Contacts/Create
++ Contacts/Index: Add column for Is Recruiter
++ Contacts/Details/1: Add indication of whether company is a recruiter
++ Contacts/Create: Append "(recruiter)" after the name in the dropdown
++ Contacts/Edit/1: Append "(recruiter)" after the name in the dropdown
 + Companies/Index: Add column for Is Recruiter
 + Companies/Details/1: Display whether company is a recruiter in a read-only way
                        Show either "Positions at IBM" or "Positions Represented by TekSystems" section as appropriate

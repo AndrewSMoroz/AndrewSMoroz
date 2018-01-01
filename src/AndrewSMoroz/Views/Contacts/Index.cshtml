@@ -28,13 +28,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CompanyName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrimaryPhone)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.PrimaryPhoneType)
             </th>
@@ -59,6 +52,7 @@
             <td>
                 <a asp-controller="Companies" asp-action="Details" asp-route-id="@item.CompanyID" title="Click to see company details" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.CompanyName)
+                    @(item.CompanyIsRecruiter ? " (recruiter)" : null)
                 </a>
             </td>
             <td>

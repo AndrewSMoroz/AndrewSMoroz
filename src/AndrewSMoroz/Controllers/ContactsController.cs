@@ -7,6 +7,7 @@ using AndrewSMoroz.ViewModels.CompanyViewModels;
 using AndrewSMoroz.ViewModels.LookupViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -212,7 +213,8 @@ namespace AndrewSMoroz.Controllers
             ViewBag.SelectListDefaultItemText = _uiSettings.SelectListDefaultItemText;
 
             // Company list
-            IEnumerable<CompanyListViewModel> companyListViewModels = await _businessServices.GetCompanyListAsync();
+            List<CompanyListViewModel> companyListViewModels = (await _businessServices.GetCompanyListAsync()).ToList<CompanyListViewModel>();
+            companyListViewModels.ForEach((vm) => { if (vm.IsRecruiter) vm.Name += " (recruiter)"; });
             ViewBag.CompanyList = new SelectList(companyListViewModels, "ID", "Name", selectedCompanyID);
 
             // Contact Types list
