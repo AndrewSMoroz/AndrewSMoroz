@@ -104,6 +104,7 @@ namespace AndrewSMoroz.Services
                 Address = companyDetailsViewModel.Address,
                 City = companyDetailsViewModel.City,
                 ID = companyDetailsViewModel.ID,
+                IsRecruiter = companyDetailsViewModel.IsRecruiter,
                 Name = companyDetailsViewModel.Name,
                 PostalCode = companyDetailsViewModel.PostalCode,
                 State = companyDetailsViewModel.State,

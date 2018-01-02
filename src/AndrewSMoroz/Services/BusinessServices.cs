@@ -428,6 +428,8 @@ namespace AndrewSMoroz.Services
                 throw new BusinessException("Could not update because the specified company name is already in use.");
             }
 
+            companyToUpdate.IsRecruiter = existingCompany.IsRecruiter;      // IsRecruiter field should not be changeable
+
             _contactsDbContext.Update(companyToUpdate);
             await _contactsDbContext.SaveChangesAsync();
 

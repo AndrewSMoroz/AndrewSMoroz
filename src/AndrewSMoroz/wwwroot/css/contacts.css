@@ -39,6 +39,10 @@ input.date-time {
     width: 200px;
 }
 
+input.input-checkbox {
+     margin: 10px 10px 0px 0px;
+}
+
 a.glyph-link {
     margin-right: 5px;
 }

@@ -17,6 +17,14 @@
             </div>
         </div>
         <div class="form-group">
+            <label asp-for="IsRecruiter" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="IsRecruiter" class="input-checkbox" />
+                NOTE: You will not be able to change this once the company has been created
+                <span asp-validation-for="IsRecruiter" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
             <label asp-for="Address" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Address" class="form-control" />

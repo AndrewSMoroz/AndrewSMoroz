@@ -133,7 +133,7 @@ namespace AndrewSMoroz.Controllers
         // POST: Companies/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Address,City,State,PostalCode")] CompanyDetailsViewModel companyDetailsViewModel)
+        public async Task<IActionResult> Create([Bind("Name,IsRecruiter,Address,City,State,PostalCode")] CompanyDetailsViewModel companyDetailsViewModel)
         {
 
             if (ModelState.IsValid)
