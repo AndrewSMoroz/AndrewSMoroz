@@ -33,6 +33,9 @@
                 @Html.DisplayNameFor(model => model.CompanyName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.RecruiterCompanyName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.MostRecentEventType)
             </th>
             <th></th>
@@ -61,6 +64,11 @@
             <td>
                 <a asp-controller="Companies" asp-action="Details" asp-route-id="@item.CompanyID" title="Click to see company details" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.CompanyName)
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Companies" asp-action="Details" asp-route-id="@item.RecruiterCompanyID" title="Click to see recruiter details" data-toggle="tooltip">
+                    @Html.DisplayFor(modelItem => item.RecruiterCompanyName)
                 </a>
             </td>
             <td>

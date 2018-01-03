@@ -770,6 +770,7 @@ namespace AndrewSMoroz.Services
                                            .Where(p => p.UserName == _userContext.UserName)
                                            .AsNoTracking()
                                            .Include(p => p.Company)
+                                           .Include(p => p.RecruiterCompany)
                                            .Include(p => p.Events)
                                                .ThenInclude(ev => ev.EventType)
                                            .OrderBy(p => p.Company.Name)
@@ -796,6 +797,7 @@ namespace AndrewSMoroz.Services
                                                .ThenInclude(pc => pc.Contact)
                                                    .ThenInclude(ct => ct.ContactPhones)
                                                        .ThenInclude(cp => cp.ContactPhoneType)
+                                           .Include(p => p.RecruiterCompany)
                                            .SingleOrDefaultAsync(p => p.ID == id);
         }
 

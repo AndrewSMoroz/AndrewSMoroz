@@ -56,6 +56,31 @@
                 <span>None</span>
             }
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RecruiterCompanyName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RecruiterCompanyName)
+        </dd>
+        <dt>
+            Recruiter Contacts
+        </dt>
+        <dd>
+            @if (Model.RecruiterContacts != null && Model.RecruiterContacts.Any())
+            {
+                <table style="border: 0px none #000000;">
+                    @foreach (ContactListViewModel contact in Model.RecruiterContacts)
+                    {
+                        <tr>
+                            <td style="padding-right: 20px;">@contact.FullName</td>
+                            <td style="padding-right: 20px;">@contact.ContactType</td>
+                            <td style="padding-right: 20px;">@contact.PrimaryPhone</td>
+                            <td style="padding-right: 20px;">@contact.PrimaryPhoneType</td>
+                        </tr>
+                    }
+                </table>
+            }
+        </dd>
     </dl>
 </div>
 

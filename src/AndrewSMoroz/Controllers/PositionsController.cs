@@ -6,6 +6,7 @@ using AndrewSMoroz.ViewModels.CompanyViewModels;
 using AndrewSMoroz.ViewModels.ContactViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -240,7 +241,10 @@ namespace AndrewSMoroz.Controllers
 
             // Company list
             IEnumerable<CompanyListViewModel> companyListViewModels = await _businessServices.GetCompanyListAsync();
-            ViewBag.CompanyList = new SelectList(companyListViewModels, "ID", "Name", selectedCompanyID);   // Intended for select list
+            ViewBag.CompanyList = new SelectList(companyListViewModels.Where(vm => vm.IsRecruiter == false), "ID", "Name", selectedCompanyID);   // Intended for select list
+
+            // Recruiter Company list
+            ViewBag.RecruiterCompanyList = new SelectList(companyListViewModels.Where(vm => vm.IsRecruiter == true), "ID", "Name", selectedCompanyID);   // Intended for select list
 
             // Contact list
             IEnumerable<ContactListViewModel> contactsListViewModels = await _businessServices.GetContactListAsync();

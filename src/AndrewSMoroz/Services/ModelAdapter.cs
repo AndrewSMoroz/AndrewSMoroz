@@ -472,19 +472,27 @@ namespace AndrewSMoroz.Services
 
             PositionDetailsViewModel viewModel = new PositionDetailsViewModel()
             {
-                CompanyName = position.Company.Name,
                 CompanyID = position.CompanyID,
-                Contacts = ConvertContacts(position.PositionContacts.Select(pc => pc.Contact)),
+                CompanyName = position.Company.Name,
+                Contacts = ConvertContacts(position.PositionContacts.Where(pc => pc.Contact.CompanyID == position.CompanyID).Select(pc => pc.Contact)),
                 DatePosted = position.DatePosted,
                 Description = position.Description,
                 Events = ConvertEvents(position.Events),
                 ID = position.ID,
+                RecruiterCompanyID = position.RecruiterCompanyID,
+                RecruiterCompanyName = (position.RecruiterCompany != null ? position.RecruiterCompany.Name : null),
+                RecruiterContacts = ConvertContacts(position.PositionContacts.Where(pc => pc.Contact.CompanyID == position.RecruiterCompanyID).Select(pc => pc.Contact)),
                 Title = position.Title
             };
 
             if (viewModel.Contacts != null)
             {
                 viewModel.ContactIDs = viewModel.Contacts.Select(ct => ct.ID).ToList();
+            }
+
+            if (viewModel.RecruiterContacts != null)
+            {
+                viewModel.RecruiterContactIDs = viewModel.RecruiterContacts.Select(ct => ct.ID).ToList();
             }
 
             return viewModel;

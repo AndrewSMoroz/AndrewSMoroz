@@ -30,9 +30,19 @@ namespace AndrewSMoroz.ViewModels.PositionViewModels
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
 
+        [Display(Name = "Recruiter")]
+        public int? RecruiterCompanyID { get; set; }
+
+        [Display(Name = "Recruiter Name")]
+        public string RecruiterCompanyName { get; set; }
+
         [Display(Name = "Contacts")]
         public IEnumerable<int> ContactIDs { get; set; }
         public IEnumerable<ContactListViewModel> Contacts { get; set; }
+
+        [Display(Name = "Recruiter Contacts")]
+        public IEnumerable<int> RecruiterContactIDs { get; set; }
+        public IEnumerable<ContactListViewModel> RecruiterContacts { get; set; }
 
         public IEnumerable<EventListViewModel> Events { get; set; }
 

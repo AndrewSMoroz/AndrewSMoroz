@@ -8,16 +8,18 @@
                        Show either "Positions at IBM" or "Positions Represented by TekSystems" section as appropriate
 + Companies/Create: Allow input of whether company is a recruiter or not - make it clear that it can't be changed later
 + Companies/Edit/1: Display whether company is a recruiter in a read-only way
-- Positions/Index: Add column for Is Recruiter
-- Positions/Details/1: Add indications of whether company is a recruiter
++ Positions/Index: Add column for Recruiter
++ Positions/Details/1: Add recruiter and recruiter contacts
 - Positions/Create: Move Company dropdown down just above Contacts section
                     Filter Company dropdown to show only non-recruiters
                     Create new Recruiter dropdown with only recruiters
                     Create new Recruiter Contacts section under Recruiter dropdown
+					Verify creating operation
 - Positions/Edit/1: Move Company dropdown down just above Contacts section
                     Filter Company dropdown to show only non-recruiters
                     Create new Recruiter dropdown with only recruiters
                     Create new Recruiter Contacts section under Recruiter dropdown
+                    Verify editting operation
 + DB Initialization: Remove the part that populates lookup lists - the new user signup functionality will do that
                      Add a new Contact Type: Recruiter
 
