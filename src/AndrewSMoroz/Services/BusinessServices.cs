@@ -545,7 +545,6 @@ namespace AndrewSMoroz.Services
 
             Position newPosition = _modelAdapter.ConvertPosition(positionDetailsViewModel);
 
-            // TODO: Consider making this pull from a repository method that returns an IQueryable
             Position existingPosition = await _contactsDbContext.Positions
                                                                 .AsNoTracking()
                                                                 .SingleOrDefaultAsync(c => c.ID == newPosition.ID && c.UserName == _userContext.UserName);
@@ -556,26 +555,26 @@ namespace AndrewSMoroz.Services
 
             _contactsDbContext.Update(newPosition);
 
-            // TODO: Consider making this pull from a repository method that returns an IQueryable
             List<int> existingContactIDs = await _contactsDbContext.PositionContacts
                                                                   .AsNoTracking()
                                                                   .Where(pc => pc.PositionID == positionDetailsViewModel.ID)
                                                                   .Select(pc => pc.ContactID)
                                                                   .ToListAsync();
 
-            // TODO: Consider making this pull from a repository method that returns an IQueryable
-            List<int> validContactsForCompany = await _contactsDbContext.Contacts
-                                                                        .AsNoTracking()
-                                                                        .Where(ct => ct.CompanyID == positionDetailsViewModel.CompanyID && ct.UserName == _userContext.UserName)
-                                                                        .Select(ct => ct.ID)
-                                                                        .ToListAsync();
+            // Get a list of valid Contacts for this Position's Company / RecruiterCompany
+            List<int> validContacts = await _contactsDbContext.Contacts
+                                                              .AsNoTracking()
+                                                              .Where(ct => ct.UserName == _userContext.UserName && 
+                                                                           (ct.CompanyID == positionDetailsViewModel.CompanyID || ct.CompanyID == positionDetailsViewModel.RecruiterCompanyID))
+                                                              .Select(ct => ct.ID)
+                                                              .ToListAsync();
 
             // Add any new PositionContacts not already in the database
             foreach (PositionContact pc in newPosition.PositionContacts)
             {
-                if (!validContactsForCompany.Contains(pc.ContactID))
+                if (!validContacts.Contains(pc.ContactID))
                 {
-                    continue;       // Don't add any IDs that belong to Contacts at a different company
+                    continue;       // Don't add any IDs that belong to Contacts at a different company/recruiter
                 }
                 if (!existingContactIDs.Contains(pc.ContactID))
                 {
@@ -598,7 +597,7 @@ namespace AndrewSMoroz.Services
                 {
                     // This PositionContact is in the database and in the new collection.
                     // Mark it for deletion if it is for a contact at another company
-                    if (!validContactsForCompany.Contains(contactID)) {
+                    if (!validContacts.Contains(contactID)) {
                         _contactsDbContext.Remove(pc);
                     }
                 }

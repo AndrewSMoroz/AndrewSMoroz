@@ -515,6 +515,7 @@ namespace AndrewSMoroz.Services
                 Description = positionDetailsViewModel.Description,
                 ID = positionDetailsViewModel.ID,
                 PositionContacts = new List<PositionContact>(),
+                RecruiterCompanyID = (positionDetailsViewModel.RecruiterCompanyID.HasValue && positionDetailsViewModel.RecruiterCompanyID > 0 ? positionDetailsViewModel.RecruiterCompanyID : null),
                 Title = positionDetailsViewModel.Title,
                 UserName = _userContext.UserName
             };
@@ -522,6 +523,14 @@ namespace AndrewSMoroz.Services
             if (positionDetailsViewModel.ContactIDs != null && positionDetailsViewModel.ContactIDs.Any())
             {
                 foreach(int contactID in positionDetailsViewModel.ContactIDs)
+                {
+                    position.PositionContacts.Add(new PositionContact() { PositionID = position.ID, ContactID = contactID, IsPrimaryContact = false });
+                }
+            }
+
+            if (positionDetailsViewModel.RecruiterContactIDs != null && positionDetailsViewModel.RecruiterContactIDs.Any())
+            {
+                foreach (int contactID in positionDetailsViewModel.RecruiterContactIDs)
                 {
                     position.PositionContacts.Add(new PositionContact() { PositionID = position.ID, ContactID = contactID, IsPrimaryContact = false });
                 }

@@ -94,7 +94,7 @@ namespace AndrewSMoroz.Controllers
         // POST: Positions/Edit/1
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,CompanyID,Title,Description,DatePosted,ContactIDs")] PositionDetailsViewModel positionDetailsViewModel, string fromController, string fromAction)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,CompanyID,Title,Description,DatePosted,ContactIDs,RecruiterCompanyID,RecruiterContactIDs")] PositionDetailsViewModel positionDetailsViewModel, string fromController, string fromAction)
         {
 
             ViewBag.FromController = fromController;

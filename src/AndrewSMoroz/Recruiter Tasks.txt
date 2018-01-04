@@ -15,7 +15,7 @@
                     Create new Recruiter dropdown with only recruiters
                     Create new Recruiter Contacts section under Recruiter dropdown
 					Verify creating operation
-- Positions/Edit/1: Move Company dropdown down just above Contacts section
++ Positions/Edit/1: Move Company dropdown down just above Contacts section
                     Filter Company dropdown to show only non-recruiters
                     Create new Recruiter dropdown with only recruiters
                     Create new Recruiter Contacts section under Recruiter dropdown
