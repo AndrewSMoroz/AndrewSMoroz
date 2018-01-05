@@ -11,15 +11,6 @@
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="CompanyID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select id="selCompanies" asp-for="CompanyID" class="form-control" asp-items="ViewBag.CompanyList">
-                    <option value="">@ViewBag.SelectListDefaultItemText</option>
-                </select>
-                <span asp-validation-for="CompanyID" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
             <label asp-for="Title" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Title" class="form-control" />
@@ -41,10 +32,35 @@
             </div>
         </div>
         <div class="form-group">
+            <label asp-for="CompanyID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select id="selCompanies" asp-for="CompanyID" class="form-control" asp-items="ViewBag.CompanyList">
+                    <option value="">@ViewBag.SelectListDefaultItemText</option>
+                </select>
+                <span asp-validation-for="CompanyID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
             <label asp-for="ContactIDs" class="control-label col-md-2"></label>
             <div class="col-md-10">
                 <div id="contact-checkboxes"></div>
                 <span asp-validation-for="ContactIDs" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="RecruiterCompanyID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select id="selRecruiterCompanies" asp-for="RecruiterCompanyID" class="form-control" asp-items="ViewBag.RecruiterCompanyList">
+                    <option value="">@ViewBag.SelectListDefaultItemText</option>
+                </select>
+                <span asp-validation-for="RecruiterCompanyID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="RecruiterContactIDs" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <div id="recruiter-contact-checkboxes"></div>
+                <span asp-validation-for="RecruiterContactIDs" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -63,7 +79,7 @@
 <script>
 
     @{
-        // Populate a variable containing the last set of checked checkedboxes that was posted
+        // Populate variables containing the last set of checked checkedboxes that were posted
         // For the scenario where some boxes were checked, submit was clicked, and there was a validation error on the server side
         // This is used to re-check the boxes when the page is re-displayed with the validation error messages
         String selectedCheckboxes = "null";
@@ -80,20 +96,34 @@
 
         //--------------------------------------------------------------------------------------------------------------
         // This uses Ajax to fetch the checkboxes html and put it into the div that has been defined to hold it
-        function GetContactCheckboxes()
+        function GetContactCheckboxes(selectElementID, divElementID)
         {
-            var companyID = $("select#selCompanies").val();
+            var companyID = $(selectElementID).val();
             if (companyID == "") {
-                $("div#contact-checkboxes").html("");
+                $(divElementID).html("");
             }
             else {
                 $.get("/Positions/ContactsForCompany/" + companyID,
                       function (data, status) {
-                          $("div#contact-checkboxes").html(data);
+                          $(divElementID).html(data);
                           CheckContactCheckboxes();
                       }
                 );
             }
+
+            //var companyID = $("select#selCompanies").val();
+            //if (companyID == "") {
+            //    $("div#contact-checkboxes").html("");
+            //}
+            //else {
+            //    $.get("/Positions/ContactsForCompany/" + companyID,
+            //          function (data, status) {
+            //              $("div#contact-checkboxes").html(data);
+            //              CheckContactCheckboxes();
+            //          }
+            //    );
+            //}
+
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -113,12 +143,19 @@
         //--------------------------------------------------------------------------------------------------------------
         // When company is changed in dropdown, display only the appropriate contact checkboxes
         $("select#selCompanies").change(function () {
-            GetContactCheckboxes();
+            GetContactCheckboxes("select#selCompanies", "div#contact-checkboxes");
+        });
+
+        //--------------------------------------------------------------------------------------------------------------
+        // When recruiter company is changed in dropdown, display only the appropriate contact checkboxes
+        $("select#selRecruiterCompanies").change(function () {
+            GetContactCheckboxes("select#selRecruiterCompanies", "div#recruiter-contact-checkboxes");
         });
 
         // Display appropriate checkboxes when document is first loaded
         // This could happen initially, or if there is a validation error caught on the server side
-        GetContactCheckboxes();
+        GetContactCheckboxes("select#selCompanies", "div#contact-checkboxes");
+        GetContactCheckboxes("select#selRecruiterCompanies", "div#recruiter-contact-checkboxes");
 
     });
 

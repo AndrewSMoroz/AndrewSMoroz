@@ -10,7 +10,7 @@
 + Companies/Edit/1: Display whether company is a recruiter in a read-only way
 + Positions/Index: Add column for Recruiter
 + Positions/Details/1: Add recruiter and recruiter contacts
-- Positions/Create: Move Company dropdown down just above Contacts section
++ Positions/Create: Move Company dropdown down just above Contacts section
                     Filter Company dropdown to show only non-recruiters
                     Create new Recruiter dropdown with only recruiters
                     Create new Recruiter Contacts section under Recruiter dropdown

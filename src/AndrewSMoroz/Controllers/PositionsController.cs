@@ -143,7 +143,7 @@ namespace AndrewSMoroz.Controllers
         // POST: Positions/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyID,ContactIDs,Title,Description,DatePosted")] PositionDetailsViewModel positionDetailsViewModel)
+        public async Task<IActionResult> Create([Bind("CompanyID,ContactIDs,RecruiterCompanyID,RecruiterContactIDs,Title,Description,DatePosted")] PositionDetailsViewModel positionDetailsViewModel)
         {
 
             if (ModelState.IsValid)
